@@ -1,0 +1,121 @@
+﻿@model CidadeUnida.Models.Denuncia
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1 class="text-3xl font-bold text-center mb-6">Editar Denúncia</h1>
+
+<h4 class="text-lg font-semibold text-gray-700 mb-4">Denúncia</h4>
+<hr class="border-gray-300 mb-6" />
+
+<div class="flex justify-center">
+    <div class="w-full max-w-lg">
+        <form asp-action="Editar" asp-route-id="@Model.IdDenuncia" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+            <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
+
+            <div class="mb-4">
+                <label asp-for="Descricao" class="block text-sm font-medium text-gray-700">Descrição:</label>
+                <input asp-for="Descricao" autofocus class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Descricao" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Categoria" class="block text-sm font-medium text-gray-700">Categoria:</label>
+                <select asp-for="Categoria" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
+                    <option value="">Selecione uma categoria</option>
+                    <option value="0">Lixo na Rua</option>
+                    <option value="1">Árvore Caída</option>
+                    <option value="2">Vazamento de Água</option>
+                    <option value="3">Obra Irregular</option>
+                    <option value="4">Outros</option>
+                </select>
+                <span asp-validation-for="Categoria" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Status" class="block text-sm font-medium text-gray-700">Status:</label>
+                <select asp-for="Status" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
+                    <option value="">Selecione um status</option>
+                    <option value="1">Pendente</option>
+                    <option value="2">Em Andamento</option>
+                    <option value="3">Resolvido</option>
+                    <option value="4">Arquivado</option>
+                </select>
+                <span asp-validation-for="Status" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Rua" class="block text-sm font-medium text-gray-700">Rua</label>
+                <input asp-for="Rua" value="@Model.Rua" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Rua" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Numero" class="block text-sm font-medium text-gray-700">Número</label>
+                <input asp-for="Numero" value="@Model.Numero" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Numero" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Bairro" class="block text-sm font-medium text-gray-700">Bairro</label>
+                <input asp-for="Bairro" value="@Model.Bairro" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Bairro" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Cidade" class="block text-sm font-medium text-gray-700">Cidade</label>
+                <input asp-for="Cidade" value="@Model.Cidade" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Cidade" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Estado" class="block text-sm font-medium text-gray-700">Estado</label>
+                <input asp-for="Estado" value="@Model.Estado" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Estado" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Cep" class="block text-sm font-medium text-gray-700">CEP</label>
+                <input asp-for="Cep" value="@Model.Cep" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Cep" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="UrlImagem" class="block text-sm font-medium text-gray-700">URL da Imagem</label>
+                <input asp-for="UrlImagem" value="@Model.UrlImagem" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="UrlImagem" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="IsAnonimo" class="block text-sm font-medium text-gray-700">É Anônimo?</label>
+                <select asp-for="IsAnonimo" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+                <span asp-validation-for="IsAnonimo" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="DataEnvio" class="block text-sm font-medium text-gray-700">Data de Envio</label>
+                <input asp-for="DataEnvio" type="datetime-local" value="@Model.DataEnvio.ToString("yyyy-MM-ddTHH:mm")" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="DataEnvio" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Ativo" class="block text-sm font-medium text-gray-700">Ativo:</label>
+                <select asp-for="Ativo" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+                <span asp-validation-for="Ativo" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="flex justify-between">
+                <input type="submit" value="Editar" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition" />
+                <a asp-action="ListarDenuncias" class="text-blue-500 hover:underline">Voltar para a Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+

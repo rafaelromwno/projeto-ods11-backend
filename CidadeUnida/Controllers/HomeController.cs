@@ -18,7 +18,32 @@ namespace CidadeUnida.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Denuncia()
+        {
+            return View();
+        }
+
+        public IActionResult Ajuda()
+        {
+            return View();
+        }
+
+        public IActionResult Registrar()
+        {
+            return View();
+        }
+
+        public IActionResult Entrar()
+        {
+            return View();
+        }
+
+        public IActionResult EsqueciSenha()
+        {
+            return View();
+        }
+
+        public IActionResult Perfil()
         {
             return View();
         }

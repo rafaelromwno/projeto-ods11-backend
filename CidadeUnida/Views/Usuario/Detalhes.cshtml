@@ -1,0 +1,49 @@
+﻿@model CidadeUnida.Models.Usuario
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1 class="text-3xl font-bold text-center mb-6">Detalhes do Usuário</h1>
+
+<div class="bg-white shadow-lg rounded-lg p-6 mb-6">
+    <h4 class="text-xl font-semibold text-gray-800 mb-4">Usuário</h4>
+    <hr class="mb-4" />
+    <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex flex-col">
+            <dt class="text-gray-600 font-semibold">ID:</dt>
+            <dd class="text-gray-800">@Html.DisplayFor(model => model.IdUsuario)</dd>
+        </div>
+
+        <div class="flex flex-col">
+            <dt class="text-gray-600 font-semibold">Nome:</dt>
+            <dd class="text-gray-800">@Html.DisplayFor(model => model.Nome)</dd>
+        </div>
+
+        <div class="flex flex-col">
+            <dt class="text-gray-600 font-semibold">Email:</dt>
+            <dd class="text-gray-800">@Html.DisplayFor(model => model.Email)</dd>
+        </div>
+
+        <div class="flex flex-col">
+            <dt class="text-gray-600 font-semibold">Telefone:</dt>
+            <dd class="text-gray-800">@Html.DisplayFor(model => model.Telefone)</dd>
+        </div>
+
+        <div class="flex flex-col">
+            <dt class="text-gray-600 font-semibold">Administrador:</dt>
+            <dd class="text-gray-800">@Html.DisplayFor(model => model.IsAdm)</dd> <!-- 1 para verdadeiro, 0 para falso -->
+        </div>
+
+        <div class="flex flex-col">
+            <dt class="text-gray-600 font-semibold">Ativo:</dt>
+            <dd class="text-gray-800">@Html.DisplayFor(model => model.Ativo)</dd> <!-- 1 para ativo, 0 para inativo -->
+        </div>
+    </dl>
+</div>
+
+<div class="flex space-x-4">
+    <a asp-action="Editar" asp-controller="Usuario" asp-route-id="@Model.IdUsuario" class="text-blue-500 hover:underline">Editar</a>
+    <a asp-action="ListarUsuarios" asp-controller="Usuario" class="text-gray-500 hover:underline">Voltar para a Lista</a>
+</div>
+

@@ -1,0 +1,206 @@
+﻿@{
+    ViewData["Title"] = "Ajuda";
+}
+
+<nav class="bg-white p-4 rounded shadow-md">
+    <button id="menu-toggle-nav" class="md:hidden p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" aria-label="Toggle navigation">
+        <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
+        <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
+        <span class="block w-6 h-0.5 bg-gray-600"></span>
+    </button>
+
+    <div id="navbarNav" class="hidden flex-col md:flex md:flex-row">
+        <ul class="flex space-x-4 flex-col md:flex md:flex-row">
+            <br>
+            <li><a href="#faq" class="text-gray-600 font-bold hover:text-azul-paleta duration-500">Perguntas Frequentes</a></li>
+            <li><a href="#usuario" class="text-gray-600 font-bold hover:text-azul-paleta duration-500">Informações para Usuários</a></li>
+            <li><a href="#contato" class="text-gray-600 font-bold hover:text-azul-paleta duration-500">Entre em Contato</a></li>
+            <li><a href="#termos" class="text-gray-600 font-bold hover:text-azul-paleta duration-500">Termos de Uso</a></li>
+            <li><a href="#cookies" class="text-gray-600 font-bold hover:text-azul-paleta duration-500">Cookies e Privacidade</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mx-auto mt-8">
+    <section id="faq">
+        <a name="faq"></a>
+        <h1 class="text-2xl font-bold mb-4 text-azul-paleta">Perguntas Frequentes</h1>
+        <div class="space-y-6">
+            <div>
+                <h2 class="text-xl text-azul-paleta font-semibold">O que é a Cidade Unida?</h2>
+                <p>A Cidade Unida é uma empresa fictícia  de software dedicada ao desenvolvimento de soluções para promover cidades bem-organizadas e sustentáveis. Nosso objetivo é melhorar a qualidade de vida urbana através da implementação de tecnologias inovadoras e políticas públicas eficazes.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Quais são os principais objetivos da Cidade Unida?</h2>
+                <ul class="list-disc list-inside">
+                    <li>Facilitar a denúncia de problemas ambientais.</li>
+                    <li>Promover a participação cidadã na tomada de decisões.</li>
+                    <li>Monitorar a qualidade ambiental.</li>
+                    <li>Auxiliar na implementação de políticas públicas voltadas para a sustentabilidade.</li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Como o software Cidade Unida pode ajudar minha comunidade?</h2>
+                <p>O software Cidade Unida oferece diversas funcionalidades, incluindo:</p>
+                <ul class="list-disc list-inside">
+                    <li>Sistema de gerenciamento de denúncias de problemas ambientais.</li>
+                    <li>Plataforma de participação cidadã.</li>
+                    <li>Sistema de monitoramento ambiental.</li>
+                    <li>Sistema de gestão de políticas públicas.</li>
+                </ul>
+                <p>Essas ferramentas capacitam os cidadãos e os governos locais a trabalharem juntos na melhoria das condições de vida na comunidade.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Quais tecnologias são utilizadas no desenvolvimento do software Cidade Unida?</h2>
+                <ul class="list-disc list-inside">
+                    <li><strong>Plataforma web:</strong> HTML, CSS, JavaScript e TailwindCSS</li>
+                    <li><strong>Aplicativos móveis (iOS e Android):</strong> Flutter</li>
+                    <li><strong>Prototipagem interativa:</strong> Figma</li>
+                    <li><strong>Modelo de Negócio:</strong> Sebrae Canvas</li>
+                    <li><strong>Modelagem de banco de dados:</strong> Dia Diagram, Relacional, SQL Server</li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Como posso contribuir para a Cidade Unida?</h2>
+                <p>Se você está interessado em contribuir, entre em contato conosco através do formulário de contato em nosso site. Estamos sempre buscando parcerias e colaborações com indivíduos e organizações que compartilham nossa visão de cidades sustentáveis e bem-organizadas.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Onde posso obter mais informações sobre a Cidade Unida e seus projetos?</h2>
+                <p>Visite nosso site e siga-nos nas redes sociais. Para contato direto, utilize nosso <a href="#contato" class="text-green-500">formulário de contato</a> disponível no site.</p>
+            </div>
+            <a href="#topo" class="text-verde-paleta font-bold hover:text-green-800">Voltar ao topo</a>
+        </div>
+    </section>
+
+    <section id="usuario" class="mt-12">
+        <a name="usuario"></a>
+        <h1 class="text-2xl font-bold mb-4 text-azul-paleta">Informações para os Usuários</h1>
+        <div class="space-y-6">
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">É um site do Estado?</h2>
+                <p>Não, a Cidade Unida não é um site estatal.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Quem é a Cidade Unida?</h2>
+                <p>A Cidade Unida é uma iniciativa acadêmica desenvolvida por alunos da Fatec Matão - “Luiz Marchesan”. Nosso objetivo é facilitar o processo de relatar problemas no seu município.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Como posso entrar em contato com vocês?</h2>
+                <p>Utilize nosso <a href="#contato" class="text-green-500">formulário de contato</a>. Verifique se as Perguntas Frequentes respondem à sua dúvida antes de enviar sua mensagem.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">O que posso relatar?</h2>
+                <p>Utilize a Cidade Unida para relatar problemas que precisam de conserto, limpeza ou remoção, como grafite, lixo, buracos ou luzes de rua quebradas.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">O que não devo relatar?</h2>
+                <ul class="list-disc list-inside">
+                    <li>Para questões urgentes, como vazamentos de gás ou quedas de árvores, entre em contato com as autoridades apropriadas diretamente.</li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">As denúncias são públicas?</h2>
+                <p>Sim, mas há duas opções de denúncia: você pode denunciar <span class="text-black font-bold">anonimamente</span>, o que oculta seus dados pessoais já cadastrados no momento da denúncia, ou pode optar por usar seus dados pessoais. Independentemente da escolha, todos os usuários devem estar logados para realizar uma denúncia.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Por que preciso fornecer meu nome e e-mail?</h2>
+                <p>Precisamos dessas informações para que o departamento responsável possa contatá-lo. Seu e-mail não será publicado e você pode optar por enviar sua denúncia anonimamente.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Como faço para me registrar?</h2>
+                <p>Visite a página "Registrar" no site da Cidade Unida.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Esqueci minha senha</h2>
+                <p>Visite a página "Recuperar Senha", forneça seu e-mail e uma nova senha. Você receberá um e-mail para confirmar a alteração.</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Quero alterar minha senha ou endereço de e-mail</h2>
+                <p>Você pode fazer isso a partir da página "Entrar".</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">O site não está funcionando</h2>
+                <ul class="list-disc list-inside">
+                    <li>Verifique sua conexão com a internet.</li>
+                    <li>Se o problema persistir, envie-nos uma mensagem através da seção "Contato" ou pelo e-mail suporte@cidadeunida.com, incluindo detalhes do erro e do navegador que você está usando.</li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-azul-paleta">Meu endereço não está no Cidade Unida</h2>
+                <ul class="list-disc list-inside">
+                    <li>Certifique-se de que o endereço está correto e completo.</li>
+                    <li>Se o endereço ainda não for encontrado, envie uma mensagem através da seção "Contato" ou pelo e-mail suporte@cidadeunida.com, incluindo detalhes do endereço que você deseja adicionar.</li>
+                </ul>
+            </div>
+            <a href="#topo" class="text-verde-paleta font-bold hover:text-green-800">Voltar ao topo</a>
+        </div>
+    </section>
+
+    <section id="contato" class="mt-12">
+        <a name="contato"></a>
+        <h1 class="text-2xl font-bold mb-4 text-azul-paleta">Entre em Contato</h1>
+        <form action="/contato" method="POST" class="bg-white p-6 rounded shadow-md space-y-4">
+            <div>
+                <label for="name" class="block text-gray-700 font-bold">Nome:</label>
+                <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required>
+            </div>
+            <div>
+                <label for="email" class="block text-gray-700 font-bold">E-mail:</label>
+                <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required>
+            </div>
+            <div>
+                <label for="message" class="block text-gray-700 font-bold">Mensagem:</label>
+                <textarea id="message" name="message" rows="4" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required></textarea>
+            </div>
+            <button type="submit" class="w-full bg-vertext-verde-paleta text-white p-2 rounded hover:bg-green-700 bg-verde-paleta duration-500  focus:outline-none focus:ring-2 focus:ring-green-500">Enviar</button>
+        </form>
+        <a href="#topo" class="text-verde-paleta font-bold hover:text-green-800 mt-4 block">Voltar ao topo</a>
+    </section>
+
+    <section id="termos" class="mt-12">
+        <a name="termos"></a>
+        <h1 class="text-2xl font-bold mb-4 text-azul-paleta">Termos de Uso</h1>
+        <p class="mb-4">Ao utilizar o site Cidade Unida, você concorda com os seguintes termos:</p>
+        <ul class="list-disc list-inside mb-4">
+            <li>Não utilizar o site para reportar informações falsas ou enganosas.</li>
+            <li>Respeitar as leis locais ao enviar denúncias.</li>
+            <li>Entender que as informações fornecidas podem ser compartilhadas com autoridades competentes.</li>
+            <li>Concordar com a publicação das denúncias no site, mantendo a transparência e evitando duplicatas.</li>
+        </ul>
+        <h2 class="text-md font-bold mb-4  text-azul-paleta">Direitos Autorais das Imagens</h2>
+        <p class="mb-4 text-md">
+            As imagens utilizadas neste site são geradas por Inteligência Artificial através da plataforma Canva. Todas as imagens foram criadas para uso exclusivo no contexto do projeto "Cidade Unida" e seguem as diretrizes de uso permitidas pela ferramenta.
+        </p>
+        <p class="mb-4 text-md">
+            Para cada imagem, a referência de autoria é mencionada diretamente no código HTML através do atributo <code>title</code> nas tags <code>&lt;img&gt;</code>. Ao passar o mouse sobre as imagens, você verá uma descrição que inclui a fonte e a data de geração da imagem.
+        </p>
+        <p class="mb-4 text-md">
+            Exemplo de referência: "Fonte: gerado por Inteligência Artificial Canva em 27/08/2024."
+        </p>
+        <p class="text-md">
+            Caso você tenha dúvidas sobre os direitos autorais das imagens ou precise de mais informações, entre em contato conosco através da seção de <a href="#contato" class="text-green-500"> contato</a>.
+        </p>
+        <a href="#topo" class="text-verde-paleta font-bold hover:text-green-800 mt-4 block">Voltar ao topo</a>
+    </section>
+
+    <section id="cookies" class="mt-12">
+        <a name="cookies"></a>
+        <h1 class="text-2xl font-bold mb-4 text-azul-paleta">Cookies e Privacidade</h1>
+        <p class="mb-4">A Cidade Unida utiliza cookies para melhorar sua experiência no site. Ao utilizar o site, você concorda com o uso de cookies conforme descrito abaixo:</p>
+        <ul class="list-disc list-inside">
+            <li>Os cookies são utilizados para armazenar informações de sessão e preferências de usuário.</li>
+            <li>Você pode desativar os cookies no seu navegador, mas algumas funcionalidades do site podem ser afetadas.</li>
+            <li>As informações coletadas são utilizadas apenas para fins de melhoria do serviço e não são compartilhadas com terceiros.</li>
+        </ul>
+        <a href="#topo" class="text-verde-paleta font-bold hover:text-green-800 mt-4 block">Voltar ao topo</a>
+    </section>
+</div>
+
+<script>
+    // JavaScript para alternar o menu mobile
+    document.getElementById('menu-toggle-nav').addEventListener('click', function() {
+        var navbarNav = document.getElementById('navbarNav');
+        navbarNav.classList.toggle('hidden');
+        navbarNav.classList.toggle('flex');
+    });
+</script>

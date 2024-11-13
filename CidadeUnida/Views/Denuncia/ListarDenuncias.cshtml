@@ -1,0 +1,97 @@
+﻿@model IEnumerable<CidadeUnida.Models.Denuncia>
+
+@{
+    ViewData["Title"] = "Listar Denuncias";
+}
+
+<h1 class="text-3xl font-bold text-center mb-6">Listar Denúncias</h1>
+
+<p class="mb-4 text-left">
+    <a asp-action="Criar" asp-controller="Denuncia" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+        Criar Nova Denúncia
+    </a>
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    @foreach (var item in Model)
+    {
+        <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-gray-200 transition">
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">ID:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.IdDenuncia)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Descrição:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Descricao)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Status:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Status)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Categoria:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Categoria)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Rua:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Rua)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Número:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Numero)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Bairro:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Bairro)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Cidade:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Cidade)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Estado:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Estado)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">CEP:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Cep)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Imagem:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.UrlImagem)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Anônimo:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.IsAnonimo)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Data de Envio:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.DataEnvio)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Ativo:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Ativo)</p>
+            </div>
+
+            <div class="flex space-x-4 mt-4">
+                <a asp-action="Editar" asp-controller="Denuncia" asp-route-id="@item.IdDenuncia" class="text-blue-500 hover:underline">Editar</a>
+                <a asp-action="Detalhes" asp-controller="Denuncia" asp-route-id="@item.IdDenuncia" class="text-green-500 hover:underline">Detalhes</a>
+                <a asp-action="Deletar" asp-controller="Denuncia" asp-route-id="@item.IdDenuncia" class="text-red-500 hover:underline" onclick="return confirm('Deseja excluir esta denúncia?');">Excluir</a>
+            </div>
+        </div>
+    }
+</div>

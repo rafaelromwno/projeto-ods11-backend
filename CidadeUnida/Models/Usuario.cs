@@ -30,7 +30,6 @@ namespace CidadeUnida.Models
 
         public bool Ativo { get; set; } = true;
 
-        public ICollection<Telefone> Telefones { get; set; }
         public ICollection<RealizaDenuncia> RealizaDenuncias { get; set; }
         public ICollection<FazContato> FazContatos { get; set; }
     }

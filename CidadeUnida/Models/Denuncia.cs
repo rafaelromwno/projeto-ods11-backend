@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using CidadeUnida.Models.Enums;
+using System.ComponentModel;
 
 namespace CidadeUnida.Models
 {
@@ -8,9 +9,11 @@ namespace CidadeUnida.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DisplayName("ID")]
         public int IdDenuncia { get; set; }
 
         [Required]
+        [DisplayName("Descrição")]
         public string Descricao { get; set; }
 
         [Required]
@@ -25,6 +28,7 @@ namespace CidadeUnida.Models
 
         [Required]
         [StringLength(10)]
+        [DisplayName("Número")]
         public string Numero { get; set; }
 
         [Required]
@@ -41,16 +45,20 @@ namespace CidadeUnida.Models
 
         [Required]
         [StringLength(10)]
+        [DisplayName("CEP")]
         public string Cep { get; set; }
 
         [StringLength(255)]
         public string UrlImagem { get; set; }
 
+        [DisplayName("É Anônimo?")]
         public bool IsAnonimo { get; set; } = false;
 
         [Required]
+        [DisplayName("Data")]
         public DateTime DataEnvio { get; set; } = DateTime.Now;
 
+        [DisplayName("Está ativo?")]
         public bool Ativo { get; set; } = true;
     }
 }

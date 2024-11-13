@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Denuncie Já";
+}
+
+<div class="min-h-screen flex items-center justify-center px-4 py-8">
+    <div class="bg-azul-paleta shadow-md rounded-lg px-6 py-8 max-w-lg w-full">
+        <h1 class="text-xl font-bold text-center mb-6 text-gray-200">Faça sua Denúncia</h1>
+        <p class="text-center text-gray-400 mb-6">Relate problemas urbanos ou ambientais preenchendo o formulário abaixo. Para denunciar anonimamente, escolha a opção adequada.</p>
+        <form>
+            <!-- Tipo de Problema -->
+            <div class="mb-6">
+                <label for="problem-type" class="block text-sm font-medium text-gray-300 mb-2">Tipo de Problema</label>
+                <select id="problem-type" name="problem-type" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm">
+                    <option value="lixo-poluição">Lixo e Poluição</option>
+                    <option value="danos-infraestrutura">Danos à Infraestrutura</option>
+                    <option value="problemas-iluminação">Problemas de Iluminação</option>
+                    <option value="questões-ambientais">Questões Ambientais</option>
+                    <option value="outros">Outros</option>
+                </select>
+            </div>
+
+            <!-- Descrição do Problema -->
+            <div class="mb-6">
+                <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Descrição do Problema</label>
+                <textarea id="description" name="description" rows="4" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Descreva o problema detalhadamente"></textarea>
+            </div>
+
+            <!-- Localização -->
+            <div class="mb-6">
+                <label for="location" class="block text-sm font-medium text-gray-300 mb-2">Localização</label>
+                <input type="text" id="location" name="location" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Endereço ou ponto de referência" required>
+            </div>
+
+            <!-- Imagens -->
+            <div class="mb-6">
+                <label for="images" class="block text-sm font-medium text-gray-300 mb-2">Imagens</label>
+                <input type="file" id="images" name="images" class="block w-full text-gray-300 py-2 px-3 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" multiple>
+            </div>
+
+            <!-- Escolha a Forma de Denúncia -->
+            <fieldset class="mb-6">
+                <legend class="text-sm font-semibold leading-6 text-gray-300">Escolha a Forma de Denúncia</legend>
+                <div class="mt-4 space-y-4">
+                    <div class="flex items-center">
+                        <input id="logged-in" name="report-as" type="radio" value="logged-in" class="h-4 w-4 text-verde-paleta focus:ring-verde-paleta" checked>
+                        <label for="logged-in" class="ml-2 text-sm text-gray-300">Denunciar como usuário logado</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="anonymous" name="report-as" type="radio" value="anonymous" class="h-4 w-4 text-verde-paleta focus:ring-verde-paleta">
+                        <label for="anonymous" class="ml-2 text-sm text-gray-300">Denunciar anonimamente</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Botão de Enviar -->
+            <div class="mb-4">
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-semibold text-white bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-verde-paleta">Enviar Denúncia</button>
+            </div>
+
+            <!-- Nota -->
+            <p class="text-sm text-gray-400 text-center">Nota: Se você escolher denunciar anonimamente, suas informações pessoais não serão vinculadas à denúncia. No entanto, recomendamos que se registre para um acompanhamento mais eficaz.</p>
+        </form>
+    </div>
+</div>

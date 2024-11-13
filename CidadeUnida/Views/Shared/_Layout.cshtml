@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>@ViewData["Title"] - CidadeUnida</title>
+    <title>@ViewData["Title"] - Cidade Unida</title>
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @* <link rel="stylesheet" href="~/CidadeUnida.styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" asp-append-version="true" />
 </head>
 
 <body class="">
@@ -18,7 +19,7 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <!-- Logo -->
             <div class="text-2xl font-bold cursor-pointer">
-                <a href="index.html">
+                <a asp-action="Index" asp-controller="Home">
                     <img src="../../assets/logotipo-sem-borda.svg" alt="Logotipo" class="w-44">
                 </a>
             </div>
@@ -34,16 +35,16 @@
 
             <!-- Navegação -->
             <nav id="menu" class="hidden md:flex space-x-9 md:items-center text-white">
-                <a href="index.html" class=" hover:text-verde-paleta hover:shadow duration-500">Home</a>
-                <a href="denuncia.html" class=" hover:text-verde-paleta hover:shadow duration-500">Denúncias</a>
-                <a href="ajuda.html" class=" hover:text-verde-paleta hover:shadow duration-500">Ajuda</a>
+                <a asp-action="Index" asp-controller="Home" class=" hover:text-verde-paleta hover:shadow duration-500">Home</a>
+                <a asp-action="Denuncia" asp-controller="Home" class=" hover:text-verde-paleta hover:shadow duration-500">Denúncias</a>
+                <a asp-action="Ajuda" asp-controller="Home" class=" hover:text-verde-paleta hover:shadow duration-500">Ajuda</a>
 
                 <!-- Botões -->
                 <div class="space-x-2">
-                    <a href="login.html" class="bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
+                    <a asp-action="Entrar" asp-controller="Home" class="bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
                         <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">login</span>Entrar
                     </a>
-                    <a href="registre-se.html" class="bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
+                    <a asp-action="Registrar" asp-controller="Home" class="bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
                         <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person_add</span> Registrar
                     </a>
                 </div>
@@ -53,16 +54,16 @@
         <!-- Menu Mobile Expandido -->
         <div id="mobile-menu" class="hidden bg-azul-paleta">
             <nav class="px-4 py-4 space-y-2">
-                <a href="index.html" class="block hover:text-verde-paleta hover:shadow duration-500">Home</a>
-                <a href="denuncia.html" class="block hover:text-verde-paleta hover:shadow duration-500">Denúncias</a>
-                <a href="ajuda.html" class="block hover:text-verde-paleta hover:shadow duration-500">Ajuda</a>
+                <a asp-action="Index" asp-controller="Home" class="block hover:text-verde-paleta hover:shadow duration-500">Home</a>
+                <a asp-action="Denuncia" asp-controller="Home" class="block hover:text-verde-paleta hover:shadow duration-500">Denúncias</a>
+                <a asp-action="Ajuda" asp-controller="Home" class="block hover:text-verde-paleta hover:shadow duration-500">Ajuda</a>
 
                 <!-- Botões -->
                 <div class="space-y-1 pt-3">
-                    <a href="login.html" class=" bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
+                    <a asp-action="Entrar" asp-controller="Home" class=" bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
                         <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">login</span>Entrar
                     </a>
-                    <a href="registre-se.html" class=" bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
+                    <a asp-action="Registrar" asp-controller="Home" class=" bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
                         <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person_add</span> Registrar
                     </a>
                 </div>
@@ -70,6 +71,8 @@
         </div>
     </header>
    
+    <a name="topo"></a>
+
     <main class="p-6">
 
         @RenderBody()
@@ -81,17 +84,17 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <!-- Logo e Nome do Site -->
                 <div class="text-center cursor-pointer md:text-left mb-4 md:mb-0">
-                    <a href="index.html">
+                    <a asp-action="Index" asp-controller="Home">
                         <img src="../../assets/logotipo-sem-borda.svg" alt="Logotipo" class="w-44">
                     </a>
                 </div>
 
                 <!-- Links de Navegação -->
                 <div class="flex justify-center mb-4 mt-2 md:mb-0">
-                    <a href="index.html" class="mx-2 hover:text-verde-paleta hover:shadow duration-500">Home</a>
-                    <a href="denuncia.html" class="mx-2 hover:text-verde-paleta hover:shadow duration-500">Denúncias</a>
-                    <a href="ajuda.html" class="mx-2 hover:text-verde-paleta hover:shadow duration-500">Ajuda</a>
-                    <a href="ajuda.html#contato" class="mx-2 hover:text-verde-paleta hover:shadow duration-500">Contato</a>
+                    <a asp-action="Index" asp-controller="Home" class="mx-2 hover:text-verde-paleta hover:shadow duration-500">Home</a>
+                    <a asp-action="Denuncia" asp-controller="Home" class="mx-2 hover:text-verde-paleta hover:shadow duration-500">Denúncias</a>
+                    <a asp-action="Ajuda" asp-controller="Home" class="mx-2 hover:text-verde-paleta hover:shadow duration-500">Ajuda</a>
+                    <a asp-action="Ajuda" asp-controller="Home" asp-fragment="contato" class="mx-2 hover:text-verde-paleta hover:shadow duration-500">Contato</a>
                 </div>
 
                 <!-- Ícones Sociais -->

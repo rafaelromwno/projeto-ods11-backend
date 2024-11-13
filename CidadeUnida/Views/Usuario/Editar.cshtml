@@ -1,0 +1,59 @@
+﻿@model CidadeUnida.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1 class="text-3xl font-bold text-center mb-6">Editar Usuário</h1>
+
+<h4 class="text-lg font-semibold text-gray-700 mb-4">Usuário</h4>
+<hr class="border-gray-300 mb-6" />
+
+<div class="flex justify-center">
+    <div class="w-full max-w-lg">
+        <form asp-action="Editar" asp-route-id="@Model.IdUsuario" method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+            <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
+
+            <div class="mb-4">
+                <label asp-for="Nome" class="block text-sm font-medium text-gray-700">Nome:</label>
+                <input asp-for="Nome" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Nome" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Email" class="block text-sm font-medium text-gray-700">Email:</label>
+                <input asp-for="Email" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Email" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Telefone" class="block text-sm font-medium text-gray-700">Telefone:</label>
+                <input asp-for="Telefone" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Telefone" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="IsAdm" class="block text-sm font-medium text-gray-700">Administrador:</label>
+                <select asp-for="IsAdm" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
+                    <option value="1">Sim</option>
+                    <option value="0">Não</option>
+                </select>
+                <span asp-validation-for="IsAdm" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Ativo" class="block text-sm font-medium text-gray-700">Ativo:</label>
+                <select asp-for="Ativo" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
+                    <option value="1">Sim</option>
+                    <option value="0">Não</option>
+                </select>
+                <span asp-validation-for="Ativo" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="flex justify-between">
+                <input type="submit" value="Editar" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition" />
+                <a asp-action="ListarUsuarios" class="text-blue-500 hover:underline">Voltar para a Lista</a>
+            </div>
+        </form>
+    </div>
+</div>

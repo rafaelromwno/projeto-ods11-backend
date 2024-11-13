@@ -13,20 +13,20 @@ namespace CidadeUnida.Repositories.ADO.SQL_Server
             _connectionString = connectionString;
         }
 
-        public async Task<Denuncia> InserirDenuncia(Denuncia denuncia)
+        public async Task<int> InserirDenuncia(Denuncia denuncia)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string sql = @"INSERT INTO tb_denuncia (descricao, id_status, id_categoria, rua, numero, bairro, cidade, estado, cep, url_imagem, is_anonimo, data_envio, ativo)
-                           VALUES (@descricao, @id_status, @id_categoria, @rua, @numero, @bairro, @cidade, @estado, @cep, @url_imagem, @is_anonimo, @data_envio, @ativo);
+                string sql = @"INSERT INTO tb_denuncia (descricao, status_denuncia, categoria, rua, numero, bairro, cidade, estado, cep, url_imagem, is_anonimo, data_envio, ativo)
+                           VALUES (@descricao, @status_denuncia, @categoria, @rua, @numero, @bairro, @cidade, @estado, @cep, @url_imagem, @is_anonimo, @data_envio, @ativo);
                            SELECT SCOPE_IDENTITY();";
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@descricao", denuncia.Descricao);
-                    command.Parameters.AddWithValue("@id_status", (int)denuncia.Status);
-                    command.Parameters.AddWithValue("@id_categoria", (int)denuncia.Categoria);
+                    command.Parameters.AddWithValue("@status_denuncia", (int)denuncia.Status);
+                    command.Parameters.AddWithValue("@categoria", (int)denuncia.Categoria);
                     command.Parameters.AddWithValue("@rua", denuncia.Rua);
                     command.Parameters.AddWithValue("@numero", denuncia.Numero);
                     command.Parameters.AddWithValue("@bairro", denuncia.Bairro);
@@ -39,24 +39,24 @@ namespace CidadeUnida.Repositories.ADO.SQL_Server
                     command.Parameters.AddWithValue("@ativo", denuncia.Ativo);
 
                     denuncia.IdDenuncia = Convert.ToInt32(await command.ExecuteScalarAsync());
-                    return denuncia;
+                    return denuncia.IdDenuncia;
                 }
             }
         }
 
-        public async Task<Denuncia> AtualizarDenuncia(Denuncia denuncia)
+        public async Task<bool> AtualizarDenuncia(Denuncia denuncia)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string sql = @"UPDATE tb_denuncia SET descricao = @descricao, id_status = @id_status, id_categoria = @id_categoria, rua = @rua, numero = @numero, bairro = @bairro,
-                           cidade = @cidade, estado = @estado, cep = @cep, url_imagem = @url_imagem, is_anonimo = @is_anonimo, ativo = @ativo WHERE id_denuncia = @id_denuncia";
+                string sql = @"UPDATE tb_denuncia SET descricao = @descricao, status_denuncia = @status_denuncia, categoria = @categoria, rua = @rua, numero = @numero, bairro = @bairro,
+                       cidade = @cidade, estado = @estado, cep = @cep, url_imagem = @url_imagem, is_anonimo = @is_anonimo, ativo = @ativo WHERE id_denuncia = @id_denuncia";
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@descricao", denuncia.Descricao);
-                    command.Parameters.AddWithValue("@id_status", (int)denuncia.Status);
-                    command.Parameters.AddWithValue("@id_categoria", (int)denuncia.Categoria);
+                    command.Parameters.AddWithValue("@status_denuncia", (int)denuncia.Status);
+                    command.Parameters.AddWithValue("@categoria", (int)denuncia.Categoria);
                     command.Parameters.AddWithValue("@rua", denuncia.Rua);
                     command.Parameters.AddWithValue("@numero", denuncia.Numero);
                     command.Parameters.AddWithValue("@bairro", denuncia.Bairro);
@@ -68,8 +68,8 @@ namespace CidadeUnida.Repositories.ADO.SQL_Server
                     command.Parameters.AddWithValue("@ativo", denuncia.Ativo);
                     command.Parameters.AddWithValue("@id_denuncia", denuncia.IdDenuncia);
 
-                    await command.ExecuteNonQueryAsync();
-                    return denuncia;
+                    int linhasAfetadas = await command.ExecuteNonQueryAsync();
+                    return linhasAfetadas > 0;
                 }
             }
         }
@@ -140,8 +140,8 @@ namespace CidadeUnida.Repositories.ADO.SQL_Server
             {
                 IdDenuncia = Convert.ToInt32(reader["id_denuncia"]),
                 Descricao = reader["descricao"].ToString(),
-                Status = (StatusDenuncia)Convert.ToInt32(reader["id_status"]),
-                Categoria = (CategoriaDenuncia)Convert.ToInt32(reader["id_categoria"]),
+                Status = (StatusDenuncia)Convert.ToInt32(reader["status_denuncia"]),
+                Categoria = (CategoriaDenuncia)Convert.ToInt32(reader["categoria"]),
                 Rua = reader["rua"].ToString(),
                 Numero = reader["numero"].ToString(),
                 Bairro = reader["bairro"].ToString(),

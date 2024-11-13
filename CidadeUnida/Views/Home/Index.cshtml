@@ -1,8 +1,101 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Página Inicial";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- "Boas vindas" -->
+<section class="bg-azul-paleta text-white p-8 rounded-lg shadow-md mb-10">
+    <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="md:w-1/2 mb-6 md:mb-0">
+            <h1 class="text-3xl font-bold mb-4">Bem-vindo ao <span class="text-verde-paleta">Cidade Unida</span>!</h1>
+            <p class="text-lg leading-relaxed">
+                Aqui, você pode ajudar a transformar sua cidade ao reportar problemas urbanos como lixo nas ruas e iluminação deficiente. Juntos, vamos tornar nossos <span class="text-verde-paleta">ambientes</span> mais limpos e seguros.
+            </p>
+            <a asp-action="Denuncia" asp-controller="Home" class="inline-block bg-verde-paleta hover:bg-verde-escuro-paleta text-white font-bold py-3 px-4 duration-500 rounded-lg shadow-lg transition mt-4">
+                Denuncie Já
+            </a>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+            <img src="../img/trabalho-equipe.jpg" alt="Imagem de uma equipe de colaboradores trabalhando em um projeto de melhoria urbana" class="w-full h-auto max-w-sm rounded-lg shadow-lg" title="Fonte: gerado por Inteligência Artificial Canva em 27/08/2024.">
+        </div>
+    </div>
+</section>
+
+<!-- "Nossos Valores" -->
+<div class="mb-6">
+    <h2 class="text-3xl font-bold tracking-tight text-azul-paleta sm:text-4xl mb-6">Nossos Valores</h2>
+    <!-- Card 1 -->
+    <div class="flex flex-col md:flex-row items-center bg-white shadow-lg rounded-lg overflow-hidden mb-5">
+        <img src="../img/escudo-privacidade.jpg" alt="Escudo que representa a confiança e a privacidade" class="w-full md:w-1/2 h-auto object-cover" title="Fonte: gerado por Inteligência Artificial Canva em 27/08/2024.">
+        <p></p>
+        <div class="p-6 text-azul-paleta md:w-1/2">
+            <h2 class="text-xl font-bold mb-4">Priorizamos a segurança das suas informações para garantir a sua confiança.</h2>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="flex flex-col md:flex-row items-center bg-white shadow-lg rounded-lg overflow-hidden mb-5">
+        <img src="../img/cidade-sustentavel.jpg" alt="Elemento gráfico de cidade sustentável com várias árvores e paisagens naturais" class="w-full md:w-1/2 h-auto object-cover" title="Fonte: gerado por Inteligência Artificial Canva em 27/08/2024.">
+        <div class="p-6 text-verde-paleta  md:w-1/2">
+            <h2 class="text-xl font-bold mb-4">Facilitamos denúncias de problemas ambientais para promover a proteção do nosso planeta.</h2>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="flex flex-col md:flex-row items-center bg-white shadow-lg rounded-lg overflow-hidden mb-5">
+        <img src="../img/acessibilidade.jpg" alt="Elemento gráfico que simboliza a acessibilidade" class="w-full md:w-1/2 h-auto object-cover" title="Fonte: gerado por Inteligência Artificial Canva em 27/08/2024.">
+        <div class="p-6 text-azul-paleta md:w-1/2">
+            <h2 class="text-xl font-bold mb-4">Nosso site é acessível a todos, garantindo que todos possam participar e ajudar.</h2>
+        </div>
+    </div>
+</div>
+
+<!-- "Nossa Equipe" -->
+<div class="bg-white py-12 sm:py-32">
+    <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
+        <div class="max-w-2xl">
+            <h2 class="text-3xl font-bold tracking-tight text-azul-paleta sm:text-4xl">Nossa Equipe</h2>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Somos um grupo de estudantes do curso de Desenvolvimento de Software Multiplataforma da FATEC Matão. Este projeto é parte do nosso trabalho acadêmico, nossa equipe está comprometida a utilizar o conhecimento adquirido no curso para desenvolver uma solução eficaz e inovadora que contribua para uma cidade mais limpa e segura.</p>
+        </div>
+        <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <img class="h-16 w-16 rounded-full" src="../img/jeronimo-barbieri.jpg" alt="Jeronimo Barbieri">
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900 cursor-pointer"><a href="https://www.instagram.com/jbarbieri__/" target="_blank">Jeronimo Barbieri</a></h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">Designer UI/UX</p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <img class="h-16 w-16 rounded-full" src="../img/rafael-romano.jpg" alt="Rafael Romano Silva">
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900 cursor-pointer"><a href="https://www.linkedin.com/in/rafael-romano-silva" target="_blank">Rafael Romano Silva</a></h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">Gestor de Projeto</p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <img class="h-16 w-16 rounded-full" src="../img/miguel-morandini.jpg" alt="Miguel Morandini">
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900 cursor-pointer"><a href="https://www.linkedin.com/in/miguel-morandini-19350128a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Miguel Morandini</a></h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">Desenvolvedor</p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <img class="h-16 w-16 rounded-full" src="../img/pedro-ferreira-leite.png" alt="Pedro Ferreira Leite">
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Pedro Ferreira Leite</h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">Analista de Dados</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>

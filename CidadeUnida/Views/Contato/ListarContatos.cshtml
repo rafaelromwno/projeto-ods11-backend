@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CidadeUnida.Models.Contato>
+
+@{
+    ViewData["Title"] = "Listar Contatos";
+}
+
+<h1 class="text-3xl font-bold text-center mb-6">Listar Contatos</h1>
+
+<p class="mb-4 text-left">
+    <a asp-action="Criar" asp-controller="Contato" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+        Criar Novo
+    </a>
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    @foreach (var item in Model)
+    {
+        <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-gray-100 transition">
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">ID:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.IdContato)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Nome:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.NomeRemetente)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Email:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.EmailRemetente)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Mensagem:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.Mensagem)</p>
+            </div>
+
+            <div class="mb-2">
+                <span class="block text-gray-700 font-semibold">Data de Envio:</span>
+                <p class="text-gray-800">@Html.DisplayFor(modelItem => item.DataEnvio)</p>
+            </div>
+
+            <div class="flex space-x-4 mt-4">
+                <a asp-action="Editar" asp-controller="Contato" asp-route-id="@item.IdContato" class="text-blue-500 hover:underline">Editar</a>
+                <a asp-action="Detalhes" asp-controller="Contato" asp-route-id="@item.IdContato" class="text-green-500 hover:underline">Detalhes</a>
+                <a asp-action="Deletar" asp-controller="Contato" asp-route-id="@item.IdContato" class="text-red-500 hover:underline" onclick="return confirm('Deseja excluir este contato?');">Excluir</a>
+            </div>
+        </div>
+    }
+</div>
+
