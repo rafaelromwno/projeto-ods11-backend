@@ -11,7 +11,7 @@
 
 <div class="flex justify-center">
     <div class="w-full max-w-lg">
-        <form asp-action="Editar" asp-route-id="@Model.IdDenuncia" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+        <form asp-action="Edit" asp-controller="Denuncia" asp-route-id="@Model.IdDenuncia" class="bg-white p-6 rounded-lg shadow-md space-y-4">
             <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
 
             <div class="mb-4">
@@ -113,7 +113,7 @@
 
             <div class="flex justify-between">
                 <input type="submit" value="Editar" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition" />
-                <a asp-action="ListarDenuncias" class="text-blue-500 hover:underline">Voltar para a Lista</a>
+                <a asp-action="Index" class="text-blue-500 hover:underline">Voltar para a Lista</a>
             </div>
         </form>
     </div>

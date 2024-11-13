@@ -15,100 +15,78 @@ namespace CidadeUnida.Controllers
                                        Configurations.AppSettings.GetKeyConnectionString())); 
         }
 
-        // Exibe uma lista de contatos
-        [HttpGet]
-        public async Task<IActionResult> ListarContatos()
+        // GET: Contato
+        public IActionResult Index()
         {
-            List<Contato> contatos = await repository.ObterTodosContatos();
-            return View(contatos); // Retorna a view "ListarContatos" com a lista de contatos
+            List<Contato> contatos = repository.GetAll();
+            return View(contatos);
         }
 
-        // Exibe detalhes de um contato específico
-        [HttpGet("{id}")]
-        [Route("Contato/Detalhes/{id:int}")]
-        public async Task<IActionResult> Detalhes(int id)
+        // GET: Contato/Details/5
+        public IActionResult Details(int id)
         {
-            Contato contato = await repository.ObterContatoPorId(id);
+            Contato contato = repository.GetByIdContato(id);
             if (contato == null)
             {
                 return NotFound();
             }
-            return View(contato); // Retorna a view "Detalhes" com o contato especificado
+            return View(contato);
         }
 
-        // Exibe o formulário para criar um novo contato
-        [HttpGet]
-        public IActionResult Criar()
+        // GET: Contato/Create
+        public IActionResult Create()
         {
-            return View(); // Retorna a view "Criar" com o formulário de criação
+            return View();
         }
 
-        // Processa o formulário de criação de um novo contato
+        // POST: Contato/Create
         [HttpPost]
-        public async Task<IActionResult> Criar(Contato contato)
+        public IActionResult Create(Contato contato)
         {
-            if (ModelState.IsValid)
+            try
             {
-                int novoId = await repository.InserirContato(contato);
-                return RedirectToAction(nameof(Detalhes), new { id = novoId });
+                repository.Add(contato);
+                return RedirectToAction(nameof(Index));
             }
-            return View(contato); // Retorna à view "Criar" em caso de erro
+            catch
+            {
+                return View();
+            }
         }
 
-        // Exibe o formulário para editar um contato existente
-        [HttpGet("{id}")]
-        [Route("Contato/Editar/{id:int}")]
-        public async Task<IActionResult> Editar(int id)
+        // GET: Contato/Edit/5
+        public IActionResult Edit(int id)
         {
-            Contato contato = await repository.ObterContatoPorId(id);
+            Contato contato = repository.GetByIdContato(id);
             if (contato == null)
             {
                 return NotFound();
             }
-            return View(contato); // Retorna a view "Editar" com o contato carregado
+            return View(contato);
         }
 
-        // Processa o formulário de edição de um contato existente
-        [HttpPost("{id}")]
-        public async Task<IActionResult> Editar(int id, Contato contato)
+        // POST: Contato/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Contato contato)
         {
-            if (id != contato.IdContato || !ModelState.IsValid)
+            try
             {
-                return BadRequest();
+                repository.Update(id, contato);
+                return RedirectToAction(nameof(Index));
             }
-
-            bool atualizado = await repository.AtualizarContato(contato);
-            if (!atualizado)
+            catch
             {
-                return NotFound();
+                return View();
             }
-            return RedirectToAction(nameof(Detalhes), new { id = contato.IdContato });
         }
 
-        // Exibe a confirmação para exclusão de um contato
-        //[HttpGet("{id}")]
-        //[Route("Contato/Deletar/{id:int}")]
-        //public async Task<IActionResult> Deletar(int id)
-        //{
-        //    Contato contato = await repository.ObterContatoPorId(id);
-        //    if (contato == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(contato); // Retorna a view "Deletar" para confirmação
-        //}
-
-        // Processa a exclusão de um contato
-        [HttpPost("{id}")]
-        [Route("Contato/Deletar/{id:int}")]
-        public async Task<IActionResult> Deletar(int id)
+        // GET: Contato/Delete/5
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
-            bool excluido = await repository.ExcluirContato(id);
-            if (!excluido)
-            {
-                return NotFound();
-            }
-            return RedirectToAction(nameof(ListarContatos));
+            repository.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

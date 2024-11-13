@@ -16,108 +16,79 @@ namespace CidadeUnida.Controllers
         }
 
         // GET: Usuario
-        public async Task<IActionResult> ListarUsuarios()
+        public IActionResult Index()
         {
-            var usuarios = await repository.ObterTodosUsuarios();
+            List<Usuario> usuarios = repository.GetAll();
             return View(usuarios);
         }
 
-        // GET: Usuario/Detalhes/5
-        public async Task<IActionResult> Detalhes(int id)
+        // GET: Usuario/Details/5
+        public IActionResult Details(int id)
         {
-            var usuario = await repository.ObterUsuarioPorId(id);
-
+            Usuario usuario = repository.GetByIdUsuario(id);
             if (usuario == null)
             {
                 return NotFound();
             }
-
             return View(usuario);
         }
 
-        // GET: Usuario/Criar
-        public IActionResult Criar()
+        // GET: Usuario/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Usuario/Criar
+        // POST: Usuario/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Criar(Usuario usuario)
+        public IActionResult Create(Usuario usuario)
         {
-            if (ModelState.IsValid)
+            try
             {
-                int novoId = await repository.InserirUsuario(usuario);
-                return RedirectToAction(nameof(ListarUsuarios));
+                repository.Add(usuario);
+                return RedirectToAction(nameof(Index));
             }
-
-            return View(usuario);
+            catch
+            {
+                return View();
+            }
         }
 
-        // GET: Usuario/Editar/5
-        public async Task<IActionResult> Editar(int id)
+        // GET: Usuario/Edit/5
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            var usuario = await repository.ObterUsuarioPorId(id);
-
+            Usuario usuario = repository.GetByIdUsuario(id);
             if (usuario == null)
             {
                 return NotFound();
             }
-
             return View(usuario);
         }
 
-        // POST: Usuario/Editar/5
+        // POST: Usuario/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(int id, Usuario usuario)
+        public IActionResult Edit(int id, Usuario usuario)
         {
-            if (id != usuario.IdUsuario)
+            try
             {
-                return BadRequest("ID do usuário não corresponde ao ID na URL.");
+                repository.Update(id, usuario);
+                return RedirectToAction(nameof(Index));
             }
-
-            if (ModelState.IsValid)
+            catch
             {
-                bool atualizado = await repository.AtualizarUsuario(usuario);
-                if (atualizado)
-                {
-                    return RedirectToAction(nameof(ListarUsuarios));
-                }
-
-                ModelState.AddModelError("", "Erro ao atualizar o usuário.");
+                return View();
             }
-
-            return View(usuario);
         }
 
-        //// GET: Usuario/Delete/5
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var usuario = await repository.ObterUsuarioPorId(id);
-
-        //    if (usuario == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(usuario);
-        //}
-
-        // POST: Usuario/Delete/5
-        [HttpPost("{id}")]
-        [Route("Usuario/Deletar/{id:int}")]
-        public async Task<IActionResult> Deletar(int id)
+        // GET: Usuario/Delete/5
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
-            bool excluido = await repository.ExcluirUsuario(id);
-            if (excluido)
-            {
-                return RedirectToAction(nameof(ListarUsuarios));
-            }
-
-            ModelState.AddModelError("", "Erro ao excluir o usuário.");
-            return View();
+            repository.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

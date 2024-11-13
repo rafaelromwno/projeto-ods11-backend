@@ -7,18 +7,19 @@
         <h1 class="text-xl font-bold text-center mb-6 text-gray-200">Faça sua Denúncia</h1>
         <p class="text-center text-gray-400 mb-6">Relate problemas urbanos ou ambientais preenchendo o formulário abaixo. Para denunciar anonimamente, escolha a opção adequada.</p>
         <form>
-            <!-- Tipo de Problema -->
-            <div class="mb-6">
-                <label for="problem-type" class="block text-sm font-medium text-gray-300 mb-2">Tipo de Problema</label>
-                <select id="problem-type" name="problem-type" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm">
-                    <option value="lixo-poluição">Lixo e Poluição</option>
-                    <option value="danos-infraestrutura">Danos à Infraestrutura</option>
-                    <option value="problemas-iluminação">Problemas de Iluminação</option>
-                    <option value="questões-ambientais">Questões Ambientais</option>
-                    <option value="outros">Outros</option>
+            @* <!-- Campo Categoria -->
+            <div class="mb-4">
+                <label asp-for="Categoria" class="block text-sm font-medium text-gray-700">Categoria</label>
+                <select asp-for="Categoria" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
+                    <option value="0">Lixo na Rua</option>
+                    <option value="1">Árvore Caída</option>
+                    <option value="2">Vazamento de Água</option>
+                    <option value="3">Obra Irregular</option>
+                    <option value="4">Outros</option>
                 </select>
+                <span asp-validation-for="Categoria" class="text-red-500 text-sm"></span>
             </div>
-
+ *@
             <!-- Descrição do Problema -->
             <div class="mb-6">
                 <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Descrição do Problema</label>
@@ -27,8 +28,28 @@
 
             <!-- Localização -->
             <div class="mb-6">
-                <label for="location" class="block text-sm font-medium text-gray-300 mb-2">Localização</label>
-                <input type="text" id="location" name="location" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Endereço ou ponto de referência" required>
+                <label for="street" class="block text-sm font-medium text-gray-300 mb-2">Rua</label>
+                <input type="text" id="street" name="street" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Rua" required>
+            </div>
+            <div class="mb-6">
+                <label for="number" class="block text-sm font-medium text-gray-300 mb-2">Número</label>
+                <input type="text" id="number" name="number" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Número" required>
+            </div>
+            <div class="mb-6">
+                <label for="neighborhood" class="block text-sm font-medium text-gray-300 mb-2">Bairro</label>
+                <input type="text" id="neighborhood" name="neighborhood" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Bairro" required>
+            </div>
+            <div class="mb-6">
+                <label for="zip-code" class="block text-sm font-medium text-gray-300 mb-2">CEP</label>
+                <input type="text" id="zip-code" name="zip-code" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="CEP" required>
+            </div>
+            <div class="mb-6">
+                <label for="city" class="block text-sm font-medium text-gray-300 mb-2">Cidade</label>
+                <input type="text" id="city" name="city" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Cidade" required>
+            </div>
+            <div class="mb-6">
+                <label for="state" class="block text-sm font-medium text-gray-300 mb-2">Estado</label>
+                <input type="text" id="state" name="state" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Estado" required>
             </div>
 
             <!-- Imagens -->
@@ -42,11 +63,11 @@
                 <legend class="text-sm font-semibold leading-6 text-gray-300">Escolha a Forma de Denúncia</legend>
                 <div class="mt-4 space-y-4">
                     <div class="flex items-center">
-                        <input id="logged-in" name="report-as" type="radio" value="logged-in" class="h-4 w-4 text-verde-paleta focus:ring-verde-paleta" checked>
+                        <input id="logged-in" name="report-as" type="radio" value="0" class="h-4 w-4 text-verde-paleta focus:ring-verde-paleta" checked>
                         <label for="logged-in" class="ml-2 text-sm text-gray-300">Denunciar como usuário logado</label>
                     </div>
                     <div class="flex items-center">
-                        <input id="anonymous" name="report-as" type="radio" value="anonymous" class="h-4 w-4 text-verde-paleta focus:ring-verde-paleta">
+                        <input id="anonymous" name="report-as" type="radio" value="1" class="h-4 w-4 text-verde-paleta focus:ring-verde-paleta">
                         <label for="anonymous" class="ml-2 text-sm text-gray-300">Denunciar anonimamente</label>
                     </div>
                 </div>

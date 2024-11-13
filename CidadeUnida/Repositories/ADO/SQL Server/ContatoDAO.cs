@@ -6,126 +6,142 @@ namespace CidadeUnida.Repositories.ADO.SQL_Server
 {
     public class ContatoDAO : IContatoDAO
     {
-        private readonly string _connectionString;
+        private readonly string connectionString;
 
-        public ContatoDAO(string connectionString)
+        public ContatoDAO(string _connectionString)
         {
-            _connectionString = connectionString;
+            connectionString = _connectionString;
         }
 
-        public async Task<int> InserirContato(Contato contato)
+        // 1. Método Listar Todos: Retornar todos os contatos na tabela Contato.
+        public List<Contato> GetAll()
         {
-            string sql = @"INSERT INTO tb_contato (nome_remetente, email_remetente, mensagem, data_envio)
-                       VALUES (@NomeRemetente, @EmailRemetente, @Mensagem, GETDATE());
-                       SELECT SCOPE_IDENTITY();";
+            List<Contato> contatos = new List<Contato>();
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand command = new SqlCommand(sql, connection))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@NomeRemetente", contato.NomeRemetente);
-                command.Parameters.AddWithValue("@EmailRemetente", contato.EmailRemetente);
-                command.Parameters.AddWithValue("@Mensagem", contato.Mensagem);
+                connection.Open();
 
-                await connection.OpenAsync();
-                int novoId = Convert.ToInt32(await command.ExecuteScalarAsync());
-                return novoId;
-            }
-        }
-
-        public async Task<Contato> ObterContatoPorId(int idContato)
-        {
-            string sql = @"SELECT id_contato, nome_remetente, email_remetente, mensagem, data_envio 
-                       FROM tb_contato 
-                       WHERE id_contato = @IdContato";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.Parameters.AddWithValue("@IdContato", idContato);
-                await connection.OpenAsync();
-
-                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                using (SqlCommand command = new SqlCommand())
                 {
-                    if (await reader.ReadAsync())
+                    command.Connection = connection;
+                    command.CommandText = "SELECT id_contato, nome_remetente, email_remetente, mensagem, data_envio FROM tb_contato;";
+
+                    SqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
                     {
-                        return new Contato
+                        Contato contato = new Contato
                         {
-                            IdContato = reader.GetInt32(0),
-                            NomeRemetente = reader.GetString(1),
-                            EmailRemetente = reader.GetString(2),
-                            Mensagem = reader.GetString(3),
-                            DataEnvio = reader.GetDateTime(4)
+                            IdContato = (int)dr["id_contato"],
+                            NomeRemetente = dr["nome_remetente"].ToString(),
+                            EmailRemetente = dr["email_remetente"].ToString(),
+                            Mensagem = dr["mensagem"].ToString(),
+                            DataEnvio = (DateTime)dr["data_envio"]
+                        };
+
+                        contatos.Add(contato);
+                    }
+                }
+            }
+            return contatos;
+        }
+
+        // Método para buscar um contato pelo ID
+        public Contato GetByIdContato(int id)
+        {
+            Contato contato = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT id_contato, nome_remetente, email_remetente, mensagem, data_envio FROM tb_contato WHERE id_contato = @id;";
+                    command.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int)).Value = id;
+
+                    SqlDataReader dr = command.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        contato = new Contato
+                        {
+                            IdContato = (int)dr["id_contato"],
+                            NomeRemetente = dr["nome_remetente"].ToString(),
+                            EmailRemetente = dr["email_remetente"].ToString(),
+                            Mensagem = dr["mensagem"].ToString(),
+                            DataEnvio = (DateTime)dr["data_envio"]
                         };
                     }
                 }
             }
-            return null; // retorna nulo se o contato não for encontrado
+            return contato;
         }
 
-        public async Task<bool> AtualizarContato(Contato contato)
+        // Método para atualizar um contato
+        public void Update(int id, Contato contato)
         {
-            string sql = @"UPDATE tb_contato
-                       SET nome_remetente = @NomeRemetente,
-                           email_remetente = @EmailRemetente,
-                           mensagem = @Mensagem
-                       WHERE id_contato = @IdContato";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand command = new SqlCommand(sql, connection))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@IdContato", contato.IdContato);
-                command.Parameters.AddWithValue("@NomeRemetente", contato.NomeRemetente);
-                command.Parameters.AddWithValue("@EmailRemetente", contato.EmailRemetente);
-                command.Parameters.AddWithValue("@Mensagem", contato.Mensagem);
+                connection.Open();
 
-                await connection.OpenAsync();
-                int linhasAfetadas = await command.ExecuteNonQueryAsync();
-                return linhasAfetadas > 0;
-            }
-        }
-
-        public async Task<bool> ExcluirContato(int idContato)
-        {
-            string sql = @"DELETE FROM tb_contato WHERE id_contato = @IdContato";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.Parameters.AddWithValue("@IdContato", idContato);
-
-                await connection.OpenAsync();
-                int linhasAfetadas = await command.ExecuteNonQueryAsync();
-                return linhasAfetadas > 0;
-            }
-        }
-        public async Task<List<Contato>> ObterTodosContatos()
-        {
-            string sql = @"SELECT id_contato, nome_remetente, email_remetente, mensagem, data_envio FROM tb_contato";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                await connection.OpenAsync();
-
-                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                using (SqlCommand command = new SqlCommand())
                 {
-                    List<Contato> contatos = new List<Contato>();
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE tb_contato SET nome_remetente = @nome_remetente, email_remetente = @email_remetente, mensagem = @mensagem, data_envio = @data_envio WHERE id_contato = @id_contato;";
+                    command.Parameters.AddWithValue("@nome_remetente", contato.NomeRemetente);
+                    command.Parameters.AddWithValue("@email_remetente", contato.EmailRemetente);
+                    command.Parameters.AddWithValue("@mensagem", contato.Mensagem);
+                    command.Parameters.AddWithValue("@data_envio", contato.DataEnvio);
+                    command.Parameters.AddWithValue("@id_contato", id);
 
-                    while (await reader.ReadAsync())
-                    {
-                        contatos.Add(new Contato
-                        {
-                            IdContato = reader.GetInt32(0),
-                            NomeRemetente = reader.GetString(1),
-                            EmailRemetente = reader.GetString(2),
-                            Mensagem = reader.GetString(3),
-                            DataEnvio = reader.GetDateTime(4)
-                        });
-                    }
-
-                    return contatos;
+                    command.ExecuteNonQuery();
                 }
             }
         }
+
+        // Método para adicionar um novo contato
+        public void Add(Contato contato)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "INSERT INTO tb_contato (nome_remetente, email_remetente, mensagem, data_envio) VALUES (@nome_remetente, @email_remetente, @mensagem, @data_envio); SELECT convert(int, @@identity) as IdContato;";
+
+                    command.Parameters.AddWithValue("@nome_remetente", contato.NomeRemetente);
+                    command.Parameters.AddWithValue("@email_remetente", contato.EmailRemetente);
+                    command.Parameters.AddWithValue("@mensagem", contato.Mensagem);
+                    command.Parameters.AddWithValue("@data_envio", contato.DataEnvio);
+
+                    contato.IdContato = (int)command.ExecuteScalar(); // Retorna o ID do novo contato inserido
+                }
+            }
+        }
+
+        // Método para deletar um contato
+        public void Delete(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "DELETE FROM tb_contato WHERE id_contato = @id_contato;";
+                    command.Parameters.AddWithValue("@id_contato", id);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
 }

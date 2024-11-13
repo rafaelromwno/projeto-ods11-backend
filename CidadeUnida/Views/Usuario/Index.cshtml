@@ -7,7 +7,7 @@
 <h1 class="text-3xl font-bold text-center mb-6">Listar Usuários</h1>
 
 <p class="mb-4 text-left">
-    <a asp-action="Criar" asp-controller="Usuario" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+    <a asp-action="Create" asp-controller="Usuario" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
         Criar Novo Usuário
     </a>
 </p>
@@ -47,9 +47,9 @@
             </div>
 
             <div class="flex space-x-4 mt-4">
-                <a asp-action="Editar" asp-controller="Usuario" asp-route-id="@item.IdUsuario" class="text-blue-500 hover:underline">Editar</a>
-                <a asp-action="Detalhes" asp-controller="Usuario" asp-route-id="@item.IdUsuario" class="text-green-500 hover:underline">Detalhes</a>
-                <a asp-action="Deletar" asp-controller="Usuario" asp-route-id="@item.IdUsuario" class="text-red-500 hover:underline" onclick="return confirm('Deseja excluir este usuário?');">Excluir</a>
+                <a asp-action="Edit" asp-controller="Usuario" asp-route-id="@item.IdUsuario" class="text-blue-500 hover:underline">Editar</a>
+                <a asp-action="Details" asp-controller="Usuario" asp-route-id="@item.IdUsuario" class="text-green-500 hover:underline">Detalhes</a>
+                <a asp-action="Delete" asp-controller="Usuario" asp-route-id="@item.IdUsuario" class="text-red-500 hover:underline" onclick="return confirm('Deseja excluir este usuário?');">Excluir</a>
             </div>
         </div>
     }

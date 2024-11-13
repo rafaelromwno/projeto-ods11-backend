@@ -15,99 +15,80 @@ namespace CidadeUnida.Controllers
                                         Configurations.AppSettings.GetKeyConnectionString()));
         }
 
-        // Exibe uma lista de todas as denúncias
-        [HttpGet]
-        public async Task<IActionResult> ListarDenuncias()
+        // GET: Denuncia
+        public IActionResult Index()
         {
-            List<Denuncia> denuncias = await repository.ListarTodasDenuncias();
-            return View(denuncias); // Retorna a view "ListarDenuncias" com a lista de denúncias
+            List<Denuncia> denuncias = repository.GetAll();
+            return View(denuncias);
         }
 
-        // Exibe detalhes de uma denúncia específica
-        [HttpGet("{id}")]
-        [Route("Denuncia/Detalhes/{id:int}")]
-        public async Task<IActionResult> Detalhes(int id)
+        // GET: Denuncia/Details/5
+        public IActionResult Details(int id)
         {
-            Denuncia denuncia = await repository.ObterDenunciaPorId(id);
+            Denuncia denuncia = repository.GetByIdDenuncia(id);
             if (denuncia == null)
             {
                 return NotFound();
             }
-            return View(denuncia); // Retorna a view "Detalhes" com a denúncia especificada
+            return View(denuncia);
         }
 
-        // Exibe o formulário para criar uma nova denúncia
-        [HttpGet]
-        public IActionResult Criar()
+        // GET: Denuncia/Create
+        public IActionResult Create()
         {
-            return View(); // Retorna a view "Criar" com o formulário de criação
+            return View();
         }
 
-        // Processa o formulário de criação de uma nova denúncia
+        // POST: Denuncia/Create
         [HttpPost]
-        public async Task<IActionResult> Criar(Denuncia denuncia)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Denuncia denuncia)
         {
-            if (ModelState.IsValid)
+            try
             {
-                int novoId = await repository.InserirDenuncia(denuncia);
-                return RedirectToAction(nameof(Detalhes), new { id = novoId });
+                repository.Add(denuncia);
+                return RedirectToAction(nameof(Index));
             }
-            return View(denuncia); // Retorna à view "Criar" em caso de erro
+            catch
+            {
+                return View();
+            }
         }
 
-        // Exibe o formulário para editar uma denúncia existente
-        [HttpGet("{id}")]
-        [Route("Denuncia/Editar/{id:int}")]
-        public async Task<IActionResult> Editar(int id)
+        // GET: Denuncia/Edit/5
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            Denuncia denuncia = await repository.ObterDenunciaPorId(id);
+            Denuncia denuncia = repository.GetByIdDenuncia(id);
             if (denuncia == null)
             {
                 return NotFound();
             }
-            return View(denuncia); // Retorna a view "Editar" com a denúncia carregada
+            return View(denuncia);
         }
 
-        // Processa o formulário de edição de uma denúncia existente
-        [HttpPost("{id}")]
-        public async Task<IActionResult> Editar(int id, Denuncia denuncia)
+        // POST: Denuncia/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Denuncia denuncia)
         {
-            if (id != denuncia.IdDenuncia || !ModelState.IsValid)
+            try
             {
-                return BadRequest();
+                repository.Update(id, denuncia);
+                return RedirectToAction(nameof(Index));
             }
-
-            bool atualizado = await repository.AtualizarDenuncia(denuncia);
-            if (!atualizado)
+            catch
             {
-                return NotFound();
+                return View();
             }
-            return RedirectToAction(nameof(Detalhes), new { id = denuncia.IdDenuncia });
         }
 
-        // Exibe a confirmação para exclusão de uma denúncia
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Deletar(int id)
-        //{
-        //    Denuncia denuncia = await repository.ObterDenunciaPorId(id);
-        //    if (denuncia == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(denuncia); // Retorna a view "Deletar" para confirmação
-        //}
-
-        // Processa a exclusão de uma denúncia
-        [HttpPost("{id}"), ActionName("Deletar")]
-        [Route("Denuncia/Deletar/{id:int}")]
-        public async Task<IActionResult> Deletar(int id)
+        // GET: Denuncia/Delete/5
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
-            bool excluido = await repository.DeletarDenuncia(id);
-            if (!excluido)
-            {
-                return NotFound();
-            }
-            return RedirectToAction(nameof(ListarDenuncias));
+            repository.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

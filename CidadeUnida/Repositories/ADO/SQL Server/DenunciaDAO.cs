@@ -6,153 +6,176 @@ namespace CidadeUnida.Repositories.ADO.SQL_Server
 {
     public class DenunciaDAO : IDenunciaDAO
     {
-        private readonly string _connectionString;
+        private readonly string connectionString;
 
-        public DenunciaDAO(string connectionString)
+        public DenunciaDAO(string _connectionString)
         {
-            _connectionString = connectionString;
+            connectionString = _connectionString;
         }
 
-        public async Task<int> InserirDenuncia(Denuncia denuncia)
+        // 1. Método Listar Todos: Retornar todas as denúncias na tabela Denuncia.
+        public List<Denuncia> GetAll()
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            List<Denuncia> denuncias = new List<Denuncia>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                await connection.OpenAsync();
-                string sql = @"INSERT INTO tb_denuncia (descricao, status_denuncia, categoria, rua, numero, bairro, cidade, estado, cep, url_imagem, is_anonimo, data_envio, ativo)
-                           VALUES (@descricao, @status_denuncia, @categoria, @rua, @numero, @bairro, @cidade, @estado, @cep, @url_imagem, @is_anonimo, @data_envio, @ativo);
-                           SELECT SCOPE_IDENTITY();";
+                connection.Open();
 
-                using (SqlCommand command = new SqlCommand(sql, connection))
+                using (SqlCommand command = new SqlCommand())
                 {
-                    command.Parameters.AddWithValue("@descricao", denuncia.Descricao);
-                    command.Parameters.AddWithValue("@status_denuncia", (int)denuncia.Status);
-                    command.Parameters.AddWithValue("@categoria", (int)denuncia.Categoria);
-                    command.Parameters.AddWithValue("@rua", denuncia.Rua);
-                    command.Parameters.AddWithValue("@numero", denuncia.Numero);
-                    command.Parameters.AddWithValue("@bairro", denuncia.Bairro);
-                    command.Parameters.AddWithValue("@cidade", denuncia.Cidade);
-                    command.Parameters.AddWithValue("@estado", denuncia.Estado);
-                    command.Parameters.AddWithValue("@cep", denuncia.Cep);
-                    command.Parameters.AddWithValue("@url_imagem", denuncia.UrlImagem ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@is_anonimo", denuncia.IsAnonimo);
-                    command.Parameters.AddWithValue("@data_envio", denuncia.DataEnvio);
-                    command.Parameters.AddWithValue("@ativo", denuncia.Ativo);
+                    command.Connection = connection;
+                    command.CommandText = "SELECT id_denuncia, descricao, status_denuncia, categoria, rua, numero, bairro, cidade, estado, cep, url_imagem, is_anonimo, data_envio, ativo FROM tb_denuncia;";
 
-                    denuncia.IdDenuncia = Convert.ToInt32(await command.ExecuteScalarAsync());
-                    return denuncia.IdDenuncia;
-                }
-            }
-        }
+                    SqlDataReader dr = command.ExecuteReader();
 
-        public async Task<bool> AtualizarDenuncia(Denuncia denuncia)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                string sql = @"UPDATE tb_denuncia SET descricao = @descricao, status_denuncia = @status_denuncia, categoria = @categoria, rua = @rua, numero = @numero, bairro = @bairro,
-                       cidade = @cidade, estado = @estado, cep = @cep, url_imagem = @url_imagem, is_anonimo = @is_anonimo, ativo = @ativo WHERE id_denuncia = @id_denuncia";
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    command.Parameters.AddWithValue("@descricao", denuncia.Descricao);
-                    command.Parameters.AddWithValue("@status_denuncia", (int)denuncia.Status);
-                    command.Parameters.AddWithValue("@categoria", (int)denuncia.Categoria);
-                    command.Parameters.AddWithValue("@rua", denuncia.Rua);
-                    command.Parameters.AddWithValue("@numero", denuncia.Numero);
-                    command.Parameters.AddWithValue("@bairro", denuncia.Bairro);
-                    command.Parameters.AddWithValue("@cidade", denuncia.Cidade);
-                    command.Parameters.AddWithValue("@estado", denuncia.Estado);
-                    command.Parameters.AddWithValue("@cep", denuncia.Cep);
-                    command.Parameters.AddWithValue("@url_imagem", denuncia.UrlImagem ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@is_anonimo", denuncia.IsAnonimo);
-                    command.Parameters.AddWithValue("@ativo", denuncia.Ativo);
-                    command.Parameters.AddWithValue("@id_denuncia", denuncia.IdDenuncia);
-
-                    int linhasAfetadas = await command.ExecuteNonQueryAsync();
-                    return linhasAfetadas > 0;
-                }
-            }
-        }
-
-        public async Task<bool> DeletarDenuncia(int id)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                string sql = "DELETE FROM tb_denuncia WHERE id_denuncia = @id_denuncia";
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    command.Parameters.AddWithValue("@id_denuncia", id);
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
-                    return rowsAffected > 0;
-                }
-            }
-        }
-
-        public async Task<Denuncia> ObterDenunciaPorId(int id)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                string sql = "SELECT * FROM tb_denuncia WHERE id_denuncia = @id_denuncia";
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    command.Parameters.AddWithValue("@id_denuncia", id);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    while (dr.Read())
                     {
-                        if (await reader.ReadAsync())
+                        Denuncia denuncia = new Denuncia
                         {
-                            return MapearDenuncia(reader);
-                        }
-                    }
-                }
-            }
-            return null;
-        }
+                            IdDenuncia = (int)dr["id_denuncia"],
+                            Descricao = dr["descricao"].ToString(),
+                            Status = (StatusDenuncia)dr["status_denuncia"],
+                            Categoria = (CategoriaDenuncia)dr["categoria"],
+                            Rua = dr["rua"].ToString(),
+                            Numero = dr["numero"].ToString(),
+                            Bairro = dr["bairro"].ToString(),
+                            Cidade = dr["cidade"].ToString(),
+                            Estado = dr["estado"].ToString(),
+                            Cep = dr["cep"].ToString(),
+                            UrlImagem = dr["url_imagem"].ToString(),
+                            IsAnonimo = (bool)dr["is_anonimo"],
+                            DataEnvio = (DateTime)dr["data_envio"],
+                            Ativo = (bool)dr["ativo"]
+                        };
 
-        public async Task<List<Denuncia>> ListarTodasDenuncias()
-        {
-            var denuncias = new List<Denuncia>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                string sql = "SELECT * FROM tb_denuncia";
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            denuncias.Add(MapearDenuncia(reader));
-                        }
+                        denuncias.Add(denuncia);
                     }
                 }
             }
             return denuncias;
         }
 
-        private Denuncia MapearDenuncia(SqlDataReader reader)
+        // Método para buscar uma denúncia pelo ID
+        public Denuncia GetByIdDenuncia(int id)
         {
-            return new Denuncia
+            Denuncia denuncia = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                IdDenuncia = Convert.ToInt32(reader["id_denuncia"]),
-                Descricao = reader["descricao"].ToString(),
-                Status = (StatusDenuncia)Convert.ToInt32(reader["status_denuncia"]),
-                Categoria = (CategoriaDenuncia)Convert.ToInt32(reader["categoria"]),
-                Rua = reader["rua"].ToString(),
-                Numero = reader["numero"].ToString(),
-                Bairro = reader["bairro"].ToString(),
-                Cidade = reader["cidade"].ToString(),
-                Estado = reader["estado"].ToString(),
-                Cep = reader["cep"].ToString(),
-                UrlImagem = reader["url_imagem"] as string,
-                IsAnonimo = Convert.ToBoolean(reader["is_anonimo"]),
-                DataEnvio = Convert.ToDateTime(reader["data_envio"]),
-                Ativo = Convert.ToBoolean(reader["ativo"])
-            };
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT id_denuncia, descricao, status_denuncia, categoria, rua, numero, bairro, cidade, estado, cep, url_imagem, is_anonimo, data_envio, ativo FROM tb_denuncia WHERE id_denuncia = @id;";
+                    command.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int)).Value = id;
+
+                    SqlDataReader dr = command.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        denuncia = new Denuncia
+                        {
+                            IdDenuncia = (int)dr["id_denuncia"],
+                            Descricao = dr["descricao"].ToString(),
+                            Status = (StatusDenuncia)dr["status_denuncia"],
+                            Categoria = (CategoriaDenuncia)dr["categoria"],
+                            Rua = dr["rua"].ToString(),
+                            Numero = dr["numero"].ToString(),
+                            Bairro = dr["bairro"].ToString(),
+                            Cidade = dr["cidade"].ToString(),
+                            Estado = dr["estado"].ToString(),
+                            Cep = dr["cep"].ToString(),
+                            UrlImagem = dr["url_imagem"].ToString(),
+                            IsAnonimo = (bool)dr["is_anonimo"],
+                            DataEnvio = (DateTime)dr["data_envio"],
+                            Ativo = (bool)dr["ativo"]
+                        };
+                    }
+                }
+            }
+            return denuncia;
+        }
+
+        // Método para atualizar uma denúncia
+        public void Update(int id, Denuncia denuncia)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE tb_denuncia SET descricao = @Descricao, status_denuncia = @Status, categoria = @Categoria, rua = @Rua, numero = @Numero, bairro = @Bairro, cidade = @Cidade, estado = @Estado, cep = @Cep, url_imagem = @UrlImagem, is_anonimo = @IsAnonimo, data_envio = @DataEnvio, ativo = @Ativo WHERE id_denuncia = @IdDenuncia;";
+                    command.Parameters.AddWithValue("@Descricao", denuncia.Descricao);
+                    command.Parameters.AddWithValue("@Status", (int)denuncia.Status);
+                    command.Parameters.AddWithValue("@Categoria", (int)denuncia.Categoria);
+                    command.Parameters.AddWithValue("@Rua", denuncia.Rua);
+                    command.Parameters.AddWithValue("@Numero", denuncia.Numero);
+                    command.Parameters.AddWithValue("@Bairro", denuncia.Bairro);
+                    command.Parameters.AddWithValue("@Cidade", denuncia.Cidade);
+                    command.Parameters.AddWithValue("@Estado", denuncia.Estado);
+                    command.Parameters.AddWithValue("@Cep", denuncia.Cep);
+                    command.Parameters.AddWithValue("@UrlImagem", (object)denuncia.UrlImagem ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@IsAnonimo", denuncia.IsAnonimo);
+                    command.Parameters.AddWithValue("@DataEnvio", denuncia.DataEnvio);
+                    command.Parameters.AddWithValue("@Ativo", denuncia.Ativo);
+                    command.Parameters.AddWithValue("@IdDenuncia", id);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        // Método para adicionar uma nova denúncia
+        public void Add(Denuncia denuncia)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "INSERT INTO tb_denuncia (descricao, status_denuncia, categoria, rua, numero, bairro, cidade, estado, cep, url_imagem, is_anonimo, data_envio, ativo) VALUES (@Descricao, @Status, @Categoria, @Rua, @Numero, @Bairro, @Cidade, @Estado, @Cep, @UrlImagem, @IsAnonimo, @DataEnvio, @Ativo); SELECT convert(int,@@identity) as IdDenuncia;";
+
+                    command.Parameters.AddWithValue("@Descricao", denuncia.Descricao);
+                    command.Parameters.AddWithValue("@Status", (int)denuncia.Status);
+                    command.Parameters.AddWithValue("@Categoria", (int)denuncia.Categoria);
+                    command.Parameters.AddWithValue("@Rua", denuncia.Rua);
+                    command.Parameters.AddWithValue("@Numero", denuncia.Numero);
+                    command.Parameters.AddWithValue("@Bairro", denuncia.Bairro);
+                    command.Parameters.AddWithValue("@Cidade", denuncia.Cidade);
+                    command.Parameters.AddWithValue("@Estado", denuncia.Estado);
+                    command.Parameters.AddWithValue("@Cep", denuncia.Cep);
+                    command.Parameters.AddWithValue("@UrlImagem", (object)denuncia.UrlImagem ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@IsAnonimo", denuncia.IsAnonimo);
+                    command.Parameters.AddWithValue("@DataEnvio", denuncia.DataEnvio);
+                    command.Parameters.AddWithValue("@Ativo", denuncia.Ativo);
+
+                    denuncia.IdDenuncia = (int)command.ExecuteScalar();
+                }
+            }
+        }
+
+        // Método para deletar uma denúncia
+        public void Delete(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "DELETE FROM tb_denuncia WHERE id_denuncia = @IdDenuncia;";
+                    command.Parameters.AddWithValue("@IdDenuncia", id);
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

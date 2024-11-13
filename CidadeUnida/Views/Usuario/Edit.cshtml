@@ -11,7 +11,7 @@
 
 <div class="flex justify-center">
     <div class="w-full max-w-lg">
-        <form asp-action="Editar" asp-route-id="@Model.IdUsuario" method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+        <form asp-action="Edit" asp-route-id="@Model.IdUsuario" method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
             <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
 
             <div class="mb-4">
@@ -33,10 +33,16 @@
             </div>
 
             <div class="mb-4">
+                <label asp-for="Senha" class="block text-sm font-medium text-gray-700">Senha:</label>
+                <input asp-for="Senha" type="password" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500" />
+                <span asp-validation-for="Senha" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
                 <label asp-for="IsAdm" class="block text-sm font-medium text-gray-700">Administrador:</label>
                 <select asp-for="IsAdm" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
-                    <option value="1">Sim</option>
-                    <option value="0">Não</option>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
                 </select>
                 <span asp-validation-for="IsAdm" class="text-red-500 text-sm"></span>
             </div>
@@ -44,15 +50,15 @@
             <div class="mb-4">
                 <label asp-for="Ativo" class="block text-sm font-medium text-gray-700">Ativo:</label>
                 <select asp-for="Ativo" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
-                    <option value="1">Sim</option>
-                    <option value="0">Não</option>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
                 </select>
                 <span asp-validation-for="Ativo" class="text-red-500 text-sm"></span>
             </div>
 
             <div class="flex justify-between">
                 <input type="submit" value="Editar" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition" />
-                <a asp-action="ListarUsuarios" class="text-blue-500 hover:underline">Voltar para a Lista</a>
+                <a asp-action="Index" class="text-blue-500 hover:underline">Voltar para a Lista</a>
             </div>
         </form>
     </div>
