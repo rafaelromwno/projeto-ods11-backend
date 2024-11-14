@@ -28,6 +28,6 @@ namespace CidadeUnida.Models
         [DisplayName("Data De Envio")]
         public DateTime DataEnvio { get; set; } = DateTime.Now;
 
-        public ICollection<FazContato> FazContatos { get; set; }
+       /* public ICollection<FazContato> FazContatos { get; set; }*/
     }
 }

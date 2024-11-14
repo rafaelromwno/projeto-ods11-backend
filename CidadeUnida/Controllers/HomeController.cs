@@ -17,6 +17,7 @@ namespace CidadeUnida.Controllers
 
         private readonly DenunciaDAO repository;
         private readonly ContatoDAO repositoryContato;
+        private readonly UsuarioDAO repositoryUsuario;
 
         public HomeController(IConfiguration configuration, IConfiguration configurationContato)
         {
@@ -24,6 +25,9 @@ namespace CidadeUnida.Controllers
                                      configuration.GetConnectionString(
                                         Configurations.AppSettings.GetKeyConnectionString()));
             repositoryContato = new ContatoDAO(
+                                    configuration.GetConnectionString(
+                                       Configurations.AppSettings.GetKeyConnectionString()));
+            repositoryUsuario = new UsuarioDAO(
                                     configuration.GetConnectionString(
                                        Configurations.AppSettings.GetKeyConnectionString()));
         }
@@ -82,9 +86,50 @@ namespace CidadeUnida.Controllers
             }
         }
 
-        public IActionResult Registrar()
+        // GET: Home/CreateUsuario
+        public IActionResult CreateUsuario()
         {
             return View();
+        }
+
+        // POST: Home/CreateUsuario
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateUsuario(Usuario usuario)
+        {
+            /*try
+            {
+
+                repositoryUsuario.Add(usuario);
+
+                TempData["SuccessMessage"] = "Seu Cadastro foi realizado!";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View(); // Redirecionará para o login futuramente!
+            }*/
+
+            if (ModelState.IsValid)
+            {
+                repositoryUsuario.Add(usuario);
+
+                TempData["SuccessMessage"] = "Seu Cadastro foi realizado!";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Linha para inspecionar erros de validação
+            /*var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+            foreach (var error in errors)
+            {
+                Console.WriteLine(error); // ou use um log para registrar os erros
+            }*/
+
+            return View(usuario);
+            
+            
         }
 
         public IActionResult Entrar()

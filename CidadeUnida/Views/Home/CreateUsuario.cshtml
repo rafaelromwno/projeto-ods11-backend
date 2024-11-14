@@ -1,0 +1,60 @@
+﻿@model CidadeUnida.Models.Usuario
+
+@{
+    ViewData["Title"] = "Registre-se";
+}
+
+<div class=" flex items-center justify-center">
+   
+    <div class="bg-azul-paleta shadow-md rounded-lg px-8 py-6 max-w-md">
+        
+        <h1 class="text-2xl font-bold text-center mb-4 text-gray-200">Bem-vindo ao Cidade Unida!</h1>
+        
+        <p class="text-center text-gray-400 mb-6">Preencha o formulário abaixo para criar sua conta.</p>
+
+        <form asp-action="CreateUsuario">
+
+            <!-- Nome Completo -->
+            <div class="mb-4">
+                <label asp-for="Nome" class="block text-sm font-medium text-gray-300 mb-2">Nome Completo</label>
+                <input asp-for="Nome" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Seu Nome Completo" required>
+                <span asp-validation-for="Nome" class="text-red-600"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+                <label asp-for="Email" class="block text-sm font-medium text-gray-300 mb-2">E-mail</label>
+                <input asp-for="Email" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="lyoto.machida@email.com" required>
+                <span asp-validation-for="Email" class="text-red-600"></span>
+            </div>
+
+            <!-- Telefone -->
+            <div class="mb-4">
+                <label asp-for="Telefone" class="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
+                <input asp-for="Telefone" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="(11) 99999-9999" required>
+                <span asp-validation-for="Telefone" class="text-red-600"></span>
+            </div>
+
+            <!-- Senha -->
+            <div class="mb-4">
+                <label asp-for="Senha" class="block text-sm font-medium text-gray-300 mb-2">Senha</label>
+                <input asp-for="Senha" type="password" id="senha" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Digite sua senha" required>
+                <span asp-validation-for="Senha" class="text-red-600"></span>
+            </div>
+
+            <!-- Confirmar Senha -->
+            <div class="mb-4">
+                <label asp-for="ConfirmarSenha" class="block text-sm font-medium text-gray-300 mb-2">Confirmar Senha</label>
+                <input asp-for="ConfirmarSenha" type="password" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Confirme sua senha" required>
+                <span asp-validation-for="ConfirmarSenha" class="text-red-600"></span>
+            </div>
+
+            <!-- Botão de Registrar -->
+            <input type="submit" value="Registrar" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-verde-escuro-paleta hover:bg-verde-paleta duration-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
+
+        </form>
+       
+        <p class="text-center text-gray-400 mt-6">Já possui uma conta? <a asp-action="Entrar" asp-controller="Home" class="text-verde-paleta hover:text-verde-escuro-paleta duration-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Entrar</a></p>
+      
+    </div>
+</div>

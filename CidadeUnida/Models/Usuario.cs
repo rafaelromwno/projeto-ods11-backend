@@ -30,7 +30,12 @@ namespace CidadeUnida.Models
 
         public bool Ativo { get; set; } = true;
 
-        public ICollection<RealizaDenuncia> RealizaDenuncias { get; set; }
-        public ICollection<FazContato> FazContatos { get; set; }
+        [NotMapped] // NÃO MAPEADO NO BANCO DE DADOS!
+        [Compare("Senha", ErrorMessage = "As senhas não correspondem.")]
+        public string ConfirmarSenha { get; set; }
+
+
+        //public ICollection<RealizaDenuncia> RealizaDenuncias { get; set; }
+        //public ICollection<FazContato> FazContatos { get; set; }
     }
 }
