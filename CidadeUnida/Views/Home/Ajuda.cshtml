@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CidadeUnida.Models.Contato
+
+@{
     ViewData["Title"] = "Ajuda";
 }
 
@@ -139,20 +141,27 @@
     <section id="contato" class="mt-12">
         <a name="contato"></a>
         <h1 class="text-2xl font-bold mb-4 text-azul-paleta">Entre em Contato</h1>
-        <form action="/contato" method="POST" class="bg-white p-6 rounded shadow-md space-y-4">
+        <form asp-action="Ajuda" class="bg-white p-6 rounded shadow-md space-y-4">
+
             <div>
-                <label for="name" class="block text-gray-700 font-bold">Nome:</label>
-                <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required>
+                <label asp-for="NomeRemetente" class="block text-gray-700 font-bold"></label>
+                <input asp-for="NomeRemetente" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required>
+                <span asp-validation-for="NomeRemetente" class="text-red-600"></span>
             </div>
+
             <div>
-                <label for="email" class="block text-gray-700 font-bold">E-mail:</label>
-                <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required>
+                <label asp-for="EmailRemetente" class="block text-gray-700 font-bold"></label>
+                <input asp-for="EmailRemetente" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required>
+                <span asp-validation-for="EmailRemetente" class="text-red-600"></span>
             </div>
+
             <div>
-                <label for="message" class="block text-gray-700 font-bold">Mensagem:</label>
-                <textarea id="message" name="message" rows="4" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required></textarea>
+                <label asp-for="Mensagem" class="block text-gray-700 font-bold"></label>
+                <textarea asp-for="Mensagem" rows="4" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400" required></textarea>
             </div>
-            <button type="submit" class="w-full bg-vertext-verde-paleta text-white p-2 rounded hover:bg-green-700 bg-verde-paleta duration-500  focus:outline-none focus:ring-2 focus:ring-green-500">Enviar</button>
+
+
+            <input type="submit" value="Enviar" class="w-full bg-vertext-verde-paleta text-white p-2 rounded hover:bg-green-700 bg-verde-paleta duration-500  focus:outline-none focus:ring-2 focus:ring-green-500" />
         </form>
         <a href="#topo" class="text-verde-paleta font-bold hover:text-green-800 mt-4 block">Voltar ao topo</a>
     </section>
@@ -204,3 +213,8 @@
         navbarNav.classList.toggle('flex');
     });
 </script>
+
+
+
+
+

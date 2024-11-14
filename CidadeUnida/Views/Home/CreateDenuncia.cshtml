@@ -1,0 +1,100 @@
+﻿@model CidadeUnida.Models.Denuncia
+
+@{
+    ViewData["Title"] = "Denuncie Já";
+}
+
+<div class="min-h-screen flex items-center justify-center px-4 py-8">
+    <div class="bg-azul-paleta shadow-md rounded-lg px-6 py-8 max-w-lg w-full">
+        <h1 class="text-xl font-bold text-center mb-6 text-gray-200">Faça sua Denúncia</h1>
+        <p class="text-center text-gray-400 mb-6">Relate problemas urbanos ou ambientais preenchendo o formulário abaixo. Para denunciar anonimamente, escolha a opção adequada.</p>
+        <form asp-action="CreateDenuncia">
+            <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
+
+            <!-- Descrição do Problema -->
+            <div class="mb-6">
+                <label asp-for="Descricao" class="block text-sm font-medium text-gray-300 mb-2">Descrição do Problema</label>
+                <textarea asp-for="Descricao" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Descreva o problema detalhadamente"></textarea>
+                <span asp-validation-for="Descricao" class="text-red-600"></span>
+            </div>
+
+            <!-- Campo Categoria -->
+            <div class="mb-4">
+                <label asp-for="Categoria" class="block text-sm font-medium text-gray-300">Categoria</label>
+                <select asp-for="Categoria" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-blue-500">
+                    <option value="0">Lixo na Rua</option>
+                    <option value="1">Árvore Caída</option>
+                    <option value="2">Vazamento de Água</option>
+                    <option value="3">Obra Irregular</option>
+                    <option value="4">Outros</option>
+                </select>
+                <span asp-validation-for="Categoria" class="text-red-500 text-sm"></span>
+            </div>
+
+            <!-- Localização -->
+            <div class="mb-6">
+                <label asp-for="Rua" class="block text-sm font-medium text-gray-300 mb-2">Rua</label>
+                <input asp-for="Rua" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Rua" required>
+                <span asp-validation-for="Rua" class="text-red-600"></span>
+            </div>
+            <div class="mb-6">
+                <label asp-for="Numero" class="block text-sm font-medium text-gray-300 mb-2">Número</label>
+                <input asp-for="Numero" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Número" required>
+                <span asp-validation-for="Numero" class="text-red-600"></span>
+            </div>
+            <div class="mb-6">
+                <label asp-for="Bairro" class="block text-sm font-medium text-gray-300 mb-2">Bairro</label>
+                <input asp-for="Bairro" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Bairro" required>
+                <span asp-validation-for="Bairro" class="text-red-600"></span>
+            </div>
+            <div class="mb-6">
+                <label asp-for="Cep" class="block text-sm font-medium text-gray-300 mb-2">CEP</label>
+                <input asp-for="Cep" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="CEP" required>
+                <span asp-validation-for="Cep" class="text-red-600"></span>
+            </div>
+            <div class="mb-6">
+                <label asp-for="Cidade" class="block text-sm font-medium text-gray-300 mb-2">Cidade</label>
+                <input asp-for="Cidade" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Cidade" required>
+                <span asp-validation-for="Cidade" class="text-red-600"></span>
+            </div>
+            <div class="mb-6">
+                <label asp-for="Estado" class="block text-sm font-medium text-gray-300 mb-2">Estado</label>
+                <input asp-for="Estado" class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" placeholder="Estado" required>
+                <span asp-validation-for="Estado" class="text-red-600"></span>
+            </div>
+
+            <!-- Imagens -->
+            <div class="mb-6">
+                <label asp-for="UrlImagem" class="block text-sm font-medium text-gray-300 mb-2">Imagens</label>                
+                <input asp-for="UrlImagem"  type="file" class="block w-full text-gray-300 py-2 px-3 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:ring-2 focus:ring-inset focus:ring-verde-paleta sm:text-sm" multiple>
+                <span asp-validation-for="UrlImagem" class="text-red-600"></span>
+            </div>            
+
+            <!-- Forma de Denúncia (IsAnonimo) -->
+            <fieldset class="mb-6">
+                <legend class="text-sm font-semibold leading-6 text-gray-300">Escolha a Forma de Denúncia</legend>
+                <div class="mt-4 space-y-4">
+                    <div class="flex items-center">
+                        <input asp-for="IsAnonimo" id="logged-in" name="report-as" type="radio" value="0" class="h-4 w-4 text-verde-paleta focus:ring-verde-paleta" checked>
+                        <label for="logged-in" class="ml-2 text-sm text-gray-300">Denunciar como usuário logado</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input asp-for="IsAnonimo" id="anonymous" name="report-as" type="radio" value="1" class="h-4 w-4 text-verde-paleta focus:ring-verde-paleta">
+                        <label for="anonymous" class="ml-2 text-sm text-gray-300">Denunciar anonimamente</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Botão de Enviar -->
+            <div class="mb-4">
+                <input type="submit" value="Enviar Denúncia" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-semibold text-white bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-verde-paleta"/>
+            </div>
+
+            <!-- Nota -->
+            <p class="text-sm text-gray-400 text-center">Nota: Se você escolher denunciar anonimamente, suas informações pessoais não serão vinculadas à denúncia. No entanto, recomendamos que se registre para um acompanhamento mais eficaz.</p>
+
+        </form>
+    </div>
+</div>
+
+

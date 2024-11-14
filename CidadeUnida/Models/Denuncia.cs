@@ -17,7 +17,7 @@ namespace CidadeUnida.Models
         public string Descricao { get; set; }
 
         [Required]
-        public StatusDenuncia Status { get; set; }  // Usando a enumeração para Status
+        public StatusDenuncia Status { get; set; } = 0; // Usando a enumeração para Status
 
         [Required]
         public CategoriaDenuncia Categoria { get; set; }  // Usando a enumeração para Categoria
