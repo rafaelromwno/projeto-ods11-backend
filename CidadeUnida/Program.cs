@@ -1,3 +1,5 @@
+using CidadeUnida.Services;
+
 namespace CidadeUnida
 {
     public class Program
@@ -8,6 +10,25 @@ namespace CidadeUnida
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            builder.Services.AddScoped<ISessao, Sessao>();
+
+            // 1. Adicionar o  Serviço de Gerenciamento de Sessão.
+
+            builder.Services.AddSession(options =>
+            {
+
+                /*
+                  A propriedade IdleTimeout refere-se ao tempo de expiração da sessão por inatividade.
+                  O tempo padrão para a inatividade da aplicação ASP.NET Core é de 20 minutos.
+                 */
+
+                options.IdleTimeout = TimeSpan.FromMinutes(10); // 10 minutos para expirar a sessão.
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -22,8 +43,9 @@ namespace CidadeUnida
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseSession();
 
+            app.UseRouting();
             app.UseAuthorization();
 
             app.MapControllerRoute(

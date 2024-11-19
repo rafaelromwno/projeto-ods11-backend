@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Painel de Administração";
+}
+
+<div class="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
+        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Painel de Administração</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+            <!-- Gerenciar Denúncias -->
+            <div class="bg-blue-500 hover:bg-blue-600 text-white text-center rounded-lg shadow-md p-6 cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105"
+                 onclick="window.location.href='@Url.Action("Index", "Denuncia")'">
+                <h2 class="text-xl font-medium">Gerenciar Denúncias</h2>
+                <p class="mt-2">Visualizar, editar e resolver as denúncias enviadas pelos usuários.</p>
+            </div>
+
+            <!-- Gerenciar Contatos -->
+            <div class="bg-green-500 hover:bg-green-600 text-white text-center rounded-lg shadow-md p-6 cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105"
+                 onclick="window.location.href='@Url.Action("Index", "Contato")'">
+                <h2 class="text-xl font-medium">Gerenciar Contatos</h2>
+                <p class="mt-2">Visualizar e responder as mensagens de contato dos usuários.</p>
+            </div>
+
+            <!-- Gerenciar Usuários -->
+            <div class="bg-yellow-500 hover:bg-yellow-600 text-white text-center rounded-lg shadow-md p-6 cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105"
+                 onclick="window.location.href='@Url.Action("Index", "Usuario")'">
+                <h2 class="text-xl font-medium">Gerenciar Usuários</h2>
+                <p class="mt-2">Gerenciar as informações dos usuários registrados, incluindo ativação e permissões.</p>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -108,7 +108,7 @@ namespace CidadeUnida.Controllers
             }
             catch
             {
-                return View(); // Redirecionará para o login futuramente!
+                return View(); // Redirecionará para o usuario futuramente!
             }*/
 
             if (ModelState.IsValid)
@@ -117,7 +117,7 @@ namespace CidadeUnida.Controllers
 
                 TempData["SuccessMessage"] = "Seu Cadastro foi realizado!";
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Login", "Login");
             }
 
             // Linha para inspecionar erros de validação
@@ -132,7 +132,12 @@ namespace CidadeUnida.Controllers
             
         }
 
-        public IActionResult Entrar()
+        public IActionResult Painel()
+        {
+            return View();
+        }
+
+        public IActionResult AcessoNegado()
         {
             return View();
         }
@@ -142,10 +147,7 @@ namespace CidadeUnida.Controllers
             return View();
         }
 
-        public IActionResult Perfil()
-        {
-            return View();
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
