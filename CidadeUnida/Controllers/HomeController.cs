@@ -1,6 +1,8 @@
 ﻿using CidadeUnida.Models;
 using CidadeUnida.Repositories.ADO.SQL_Server;
+using CidadeUnida.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using NuGet.Protocol.Core.Types;
 using System.Diagnostics;
 
@@ -48,6 +50,12 @@ namespace CidadeUnida.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateDenuncia(Denuncia denuncia)
         {
+            var isLogado = VerificarSeEstaLogado();
+            if (isLogado != null)
+            {
+                return isLogado; // Redireciona se o usuário não tiver permissão
+            }
+
             try
             {
                 repository.Add(denuncia);
@@ -72,6 +80,12 @@ namespace CidadeUnida.Controllers
         [HttpPost]
         public IActionResult Ajuda(Contato contato)
         {
+            var isLogado = VerificarSeEstaLogado();
+            if (isLogado != null)
+            {
+                return isLogado; // Redireciona se o usuário não tiver permissão
+            }
+
             try
             {
                 repositoryContato.Add(contato);
@@ -134,6 +148,12 @@ namespace CidadeUnida.Controllers
 
         public IActionResult Painel()
         {
+            var permissao = VerificarPermissao();
+            if (permissao != null)
+            {
+                return permissao; // Redireciona se o usuário não tiver permissão
+            }
+
             return View();
         }
 
@@ -145,14 +165,44 @@ namespace CidadeUnida.Controllers
         public IActionResult EsqueciSenha()
         {
             return View();
-        }
-
-        
+        }              
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private IActionResult VerificarPermissao()
+        {
+            var loginTokenJson = HttpContext.Session.GetString("login");
+            if (loginTokenJson == null)
+            {
+                TempData["ErrorMessage"] = "É necessário estar logado para realizar essa operação!";
+
+                return RedirectToAction("Login", "Login");
+            }
+
+            var login = JsonConvert.DeserializeObject<LoginViewModel>(loginTokenJson);
+            if (!login.IsAdm)
+            {
+                return RedirectToAction("AcessoNegado", "Home");
+            }
+
+            return null; // Indica que o acesso está permitido
+        }
+
+        private IActionResult VerificarSeEstaLogado()
+        {
+            var loginTokenJson = HttpContext.Session.GetString("login");
+            if (loginTokenJson == null)
+            {
+                TempData["ErrorMessage"] = "É necessário estar logado para realizar essa operação!";
+
+                return RedirectToAction("Login", "Login");
+            }           
+
+            return null; // Indica que o acesso está permitido
         }
     }
 }

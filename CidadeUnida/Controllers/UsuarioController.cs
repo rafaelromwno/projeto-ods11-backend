@@ -1,6 +1,8 @@
 ﻿using CidadeUnida.Models;
 using CidadeUnida.Repositories.ADO.SQL_Server;
+using CidadeUnida.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CidadeUnida.Controllers
 {
@@ -18,6 +20,12 @@ namespace CidadeUnida.Controllers
         // GET: Usuario
         public IActionResult Index()
         {
+            var permissao = VerificarPermissao();
+            if (permissao != null)
+            {
+                return permissao; // Redireciona se o usuário não tiver permissão
+            }
+
             List<Usuario> usuarios = repository.GetAll();
             return View(usuarios);
         }
@@ -25,6 +33,12 @@ namespace CidadeUnida.Controllers
         // GET: Usuario/Details/5
         public IActionResult Details(int id)
         {
+            var permissao = VerificarPermissao();
+            if (permissao != null)
+            {
+                return permissao; // Redireciona se o usuário não tiver permissão
+            }
+
             Usuario usuario = repository.GetByIdUsuario(id);
             if (usuario == null)
             {
@@ -36,6 +50,12 @@ namespace CidadeUnida.Controllers
         // GET: Usuario/Create
         public IActionResult Create()
         {
+            var permissao = VerificarPermissao();
+            if (permissao != null)
+            {
+                return permissao; // Redireciona se o usuário não tiver permissão
+            }
+
             return View();
         }
 
@@ -44,6 +64,12 @@ namespace CidadeUnida.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Usuario usuario)
         {
+            var permissao = VerificarPermissao();
+            if (permissao != null)
+            {
+                return permissao; // Redireciona se o usuário não tiver permissão
+            }
+
             try
             {
                 repository.Add(usuario);
@@ -59,6 +85,12 @@ namespace CidadeUnida.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            var permissao = VerificarPermissao();
+            if (permissao != null)
+            {
+                return permissao; // Redireciona se o usuário não tiver permissão
+            }
+
             Usuario usuario = repository.GetByIdUsuario(id);
             if (usuario == null)
             {
@@ -72,6 +104,12 @@ namespace CidadeUnida.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Usuario usuario)
         {
+            var permissao = VerificarPermissao();
+            if (permissao != null)
+            {
+                return permissao; // Redireciona se o usuário não tiver permissão
+            }
+
             try
             {
                 repository.Update(id, usuario);
@@ -87,8 +125,33 @@ namespace CidadeUnida.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
+            var permissao = VerificarPermissao();
+            if (permissao != null)
+            {
+                return permissao; // Redireciona se o usuário não tiver permissão
+            }
+
             repository.Delete(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult VerificarPermissao()
+        {
+            var loginTokenJson = HttpContext.Session.GetString("login");
+            if (loginTokenJson == null)
+            {
+                TempData["ErrorMessage"] = "É necessário estar logado para realizar essa operação!";
+
+                return RedirectToAction("Login", "Login");
+            }
+
+            var login = JsonConvert.DeserializeObject<LoginViewModel>(loginTokenJson);
+            if (!login.IsAdm)
+            {
+                return RedirectToAction("AcessoNegado", "Home");
+            }
+
+            return null; // Indica que o acesso está permitido
         }
     }
 }

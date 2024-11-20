@@ -5,6 +5,7 @@ using CidadeUnida.Configurations;
 using NuGet.Protocol.Plugins;
 using CidadeUnida.Models;
 using CidadeUnida.ViewModels;
+using Newtonsoft.Json;
 
 namespace CidadeUnida.Controllers
 {
@@ -72,6 +73,12 @@ namespace CidadeUnida.Controllers
         [HttpGet]
         public IActionResult EditarPerfil(int id)
         {
+            var isLogado = VerificarSeEstaLogado();
+            if (isLogado != null)
+            {
+                return isLogado; // Redireciona se o usuário não tiver permissão
+            }
+
             var perfil = repositoryPerfil.ObterPerfil(id);
             if (perfil == null)
             {
@@ -85,6 +92,12 @@ namespace CidadeUnida.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarPerfil(PerfilViewModel perfil)
         {
+            var isLogado = VerificarSeEstaLogado();
+            if (isLogado != null)
+            {
+                return isLogado; // Redireciona se o usuário não tiver permissão
+            }
+
             if (ModelState.IsValid)
             {
                 bool sucesso = repositoryPerfil.AtualizarPerfil(perfil);
@@ -104,8 +117,27 @@ namespace CidadeUnida.Controllers
 
         public IActionResult Logout()
         {
+            var isLogado = VerificarSeEstaLogado();
+            if (isLogado != null)
+            {
+                return isLogado; // Redireciona se o usuário não tiver permissão
+            }
+
             sessao.DeleteTokenLogin();
             return RedirectToAction("Index", "Home");
+        }
+
+        private IActionResult VerificarSeEstaLogado()
+        {
+            var loginTokenJson = HttpContext.Session.GetString("login");
+            if (loginTokenJson == null)
+            {
+                TempData["ErrorMessage"] = "É necessário estar logado para realizar essa operação!";
+
+                return RedirectToAction("Login", "Login");
+            }
+
+            return null; // Indica que o acesso está permitido
         }
     }
 }
