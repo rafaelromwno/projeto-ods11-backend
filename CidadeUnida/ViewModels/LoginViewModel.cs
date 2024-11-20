@@ -10,6 +10,7 @@ namespace CidadeUnida.ViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter entre 6 e 100 caracteres.")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
 

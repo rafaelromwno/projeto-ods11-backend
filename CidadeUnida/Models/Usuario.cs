@@ -23,7 +23,7 @@ namespace CidadeUnida.Models
         public string Telefone { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter entre 6 e 100 caracteres.")]
         public string Senha { get; set; }
 
         public bool IsAdm { get; set; } = false;

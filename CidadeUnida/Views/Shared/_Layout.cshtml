@@ -64,30 +64,29 @@
                 <a asp-action="CreateDenuncia" asp-controller="Home" class=" hover:text-verde-paleta hover:shadow duration-500">Denúncias</a>
                 <a asp-action="Ajuda" asp-controller="Home" class=" hover:text-verde-paleta hover:shadow duration-500">Ajuda</a>
 
-                @{
-                    if (ViewData["Usuario"]?.ToString() == null)
-                    {
-                        <!-- Botões -->
-                        <div class="space-x-2">
-                            <a asp-action="Login" asp-controller="Login" class="bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
-                                <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">login</span>Entrar
-                            </a>
-                            <a asp-action="CreateUsuario" asp-controller="Home" class="bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
-                                <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person_add</span> Registrar
-                            </a>
-                        </div>
-                    }
-                    else
-                    {
-                        if (ViewData["Tipo"]?.ToString() == "adm")
-                        {
-                            <a asp-action="Painel" asp-controller="Home" class=" hover:text-verde-paleta hover:shadow duration-500">Painel Administrativo</a>
-                        }
-
-                        <a asp-action="EditarPerfil" asp-controller="Login" asp-route-id="@ViewData["Id"]" class=" bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
-                            <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person</span> Perfil
+                @if (ViewData["Usuario"]?.ToString() == null)
+                {
+                    <!-- Botões -->
+                    <div class="space-x-2">
+                        <a asp-action="Login" asp-controller="Login" class=" bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
+                            <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">login</span>Entrar
                         </a>
+                        <a asp-action="CreateUsuario" asp-controller="Home" class=" bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
+                            <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person_add</span> Registrar
+                        </a>
+                    </div>
+                }
+                else
+                {
+
+                    @if (ViewData["Tipo"]?.ToString() == "adm")
+                    {
+                        <a asp-action="Painel" asp-controller="Home" asp-route-id="@ViewData["Id"]" class=" hover:text-verde-paleta hover:shadow block items-center duration-500">Painel Administrativo</a>
                     }
+
+                    <a asp-action="EditarPerfil" asp-controller="Login" asp-route-id="@ViewData["Id"]" class=" bg-verde-paleta hover:bg-verde-escuro-paleta py-2 px-4 inline-flex items-center duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
+                        <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person</span> Perfil
+                    </a>
                 }
 
             </nav>
@@ -100,31 +99,29 @@
                 <a asp-action="CreateDenuncia" asp-controller="Home" class="block hover:text-verde-paleta hover:shadow duration-500">Denúncias</a>
                 <a asp-action="Ajuda" asp-controller="Home" class="block hover:text-verde-paleta hover:shadow duration-500">Ajuda</a>
 
-                @{
-                    if (ViewData["Usuario"]?.ToString() == null)
-                    {                       
-                        <!-- Botões -->
-                        <div class="space-y-1 pt-3">
-                            <a asp-action="Login" asp-controller="Login" class=" bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
-                                <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">login</span>Entrar
-                            </a>
-                            <a asp-action="CreateUsuario" asp-controller="Home" class=" bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
-                                <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person_add</span> Registrar
-                            </a>
-                        </div>
-                    }
-                    else
+                @if (ViewData["Usuario"]?.ToString() == null)
+                {
+                    <!-- Botões -->
+
+                    <a asp-action="Login" asp-controller="Login" class=" bg-verde-paleta hover:bg-verde-escuro-paleta duration-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
+                        <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">login</span>Entrar
+                    </a>
+                    <a asp-action="CreateUsuario" asp-controller="Home" class=" bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
+                        <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person_add</span> Registrar
+                    </a>
+
+                }
+                else
+                {
+
+                    @if (ViewData["Tipo"]?.ToString() == "adm")
                     {
-
-                        if (ViewData["Tipo"]?.ToString() == "adm")
-                        {
-                            <a asp-action="Painel" asp-controller="Home" asp-route-id="@ViewData["Id"]" class=" hover:text-verde-paleta hover:shadow duration-500">Painel Administrativo</a>
-                        }
-
-                        <a asp-action="EditarPerfil" asp-controller="Login" class=" bg-gray-300 hover:bg-gray-400 duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
-                            <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person</span> Perfil
-                        </a>
+                        <a asp-action="Painel" asp-controller="Home" asp-route-id="@ViewData["Id"]" class=" hover:text-verde-paleta hover:shadow block items-center duration-500">Painel Administrativo</a>
                     }
+
+                    <a asp-action="EditarPerfil" asp-controller="Login" asp-route-id="@ViewData["Id"]" class=" bg-verde-paleta hover:bg-verde-escuro-paleta py-2 px-4 inline-flex items-center duration-500 text-azul-paleta font-semibold py-2 px-4 rounded inline-flex items-center">
+                        <span class="material-symbols-outlined flex items-center justify-center w-5 h-5 mr-2">person</span> Perfil
+                    </a>
                 }
 
             </nav>
