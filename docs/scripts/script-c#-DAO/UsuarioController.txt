@@ -1,0 +1,98 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+public class UsuarioController : Controller
+{
+    private readonly UsuarioDAO _usuarioDAO;
+
+    public UsuarioController(UsuarioDAO usuarioDAO)
+    {
+        _usuarioDAO = usuarioDAO;
+    }
+
+    // GET: Usuario
+    public IActionResult Index()
+    {
+        List<Usuario> usuarios = _usuarioDAO.GetAll();
+        return View(usuarios);
+    }
+
+    // GET: Usuario/Details/5
+    public IActionResult Details(int id)
+    {
+        Usuario usuario = _usuarioDAO.GetByIdUsuario(id);
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+        return View(usuario);
+    }
+
+    // GET: Usuario/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Usuario/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Usuario usuario)
+    {
+        if (ModelState.IsValid)
+        {
+            _usuarioDAO.Add(usuario);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(usuario);
+    }
+
+    // GET: Usuario/Edit/5
+    public IActionResult Edit(int id)
+    {
+        Usuario usuario = _usuarioDAO.GetByIdUsuario(id);
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+        return View(usuario);
+    }
+
+    // POST: Usuario/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, Usuario usuario)
+    {
+        if (id != usuario.IdUsuario)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            _usuarioDAO.Update(id, usuario);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(usuario);
+    }
+
+    // GET: Usuario/Delete/5
+    public IActionResult Delete(int id)
+    {
+        Usuario usuario = _usuarioDAO.GetByIdUsuario(id);
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+        return View(usuario);
+    }
+
+    // POST: Usuario/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        _usuarioDAO.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
+}

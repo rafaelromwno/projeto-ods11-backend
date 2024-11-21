@@ -1,0 +1,98 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+public class ContatoController : Controller
+{
+    private readonly ContatoDAO _contatoDAO;
+
+    public ContatoController(ContatoDAO contatoDAO)
+    {
+        _contatoDAO = contatoDAO;
+    }
+
+    // GET: Contato
+    public IActionResult Index()
+    {
+        List<Contato> contatos = _contatoDAO.GetAll();
+        return View(contatos);
+    }
+
+    // GET: Contato/Details/5
+    public IActionResult Details(int id)
+    {
+        Contato contato = _contatoDAO.GetByIdContato(id);
+        if (contato == null)
+        {
+            return NotFound();
+        }
+        return View(contato);
+    }
+
+    // GET: Contato/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Contato/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Contato contato)
+    {
+        if (ModelState.IsValid)
+        {
+            _contatoDAO.Add(contato);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(contato);
+    }
+
+    // GET: Contato/Edit/5
+    public IActionResult Edit(int id)
+    {
+        Contato contato = _contatoDAO.GetByIdContato(id);
+        if (contato == null)
+        {
+            return NotFound();
+        }
+        return View(contato);
+    }
+
+    // POST: Contato/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, Contato contato)
+    {
+        if (id != contato.IdContato)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            _contatoDAO.Update(id, contato);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(contato);
+    }
+
+    // GET: Contato/Delete/5
+    public IActionResult Delete(int id)
+    {
+        Contato contato = _contatoDAO.GetByIdContato(id);
+        if (contato == null)
+        {
+            return NotFound();
+        }
+        return View(contato);
+    }
+
+    // POST: Contato/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        _contatoDAO.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
+}

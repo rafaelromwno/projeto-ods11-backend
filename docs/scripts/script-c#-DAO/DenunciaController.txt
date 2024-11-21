@@ -1,0 +1,98 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+public class DenunciaController : Controller
+{
+    private readonly DenunciaDAO _denunciaDAO;
+
+    public DenunciaController(DenunciaDAO denunciaDAO)
+    {
+        _denunciaDAO = denunciaDAO;
+    }
+
+    // GET: Denuncia
+    public IActionResult Index()
+    {
+        List<Denuncia> denuncias = _denunciaDAO.GetAll();
+        return View(denuncias);
+    }
+
+    // GET: Denuncia/Details/5
+    public IActionResult Details(int id)
+    {
+        Denuncia denuncia = _denunciaDAO.GetByIdDenuncia(id);
+        if (denuncia == null)
+        {
+            return NotFound();
+        }
+        return View(denuncia);
+    }
+
+    // GET: Denuncia/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Denuncia/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Denuncia denuncia)
+    {
+        if (ModelState.IsValid)
+        {
+            _denunciaDAO.Add(denuncia);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(denuncia);
+    }
+
+    // GET: Denuncia/Edit/5
+    public IActionResult Edit(int id)
+    {
+        Denuncia denuncia = _denunciaDAO.GetByIdDenuncia(id);
+        if (denuncia == null)
+        {
+            return NotFound();
+        }
+        return View(denuncia);
+    }
+
+    // POST: Denuncia/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, Denuncia denuncia)
+    {
+        if (id != denuncia.IdDenuncia)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            _denunciaDAO.Update(id, denuncia);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(denuncia);
+    }
+
+    // GET: Denuncia/Delete/5
+    public IActionResult Delete(int id)
+    {
+        Denuncia denuncia = _denunciaDAO.GetByIdDenuncia(id);
+        if (denuncia == null)
+        {
+            return NotFound();
+        }
+        return View(denuncia);
+    }
+
+    // POST: Denuncia/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        _denunciaDAO.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
+}
