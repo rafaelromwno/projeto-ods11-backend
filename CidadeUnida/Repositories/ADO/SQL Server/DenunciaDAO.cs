@@ -139,7 +139,7 @@ namespace CidadeUnida.Repositories.ADO.SQL_Server
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "INSERT INTO tb_denuncia (descricao, status_denuncia, categoria, rua, numero, bairro, cidade, estado, cep, url_imagem, is_anonimo, data_envio, ativo) VALUES (@Descricao, @Status, @Categoria, @Rua, @Numero, @Bairro, @Cidade, @Estado, @Cep, @UrlImagem, @IsAnonimo, @DataEnvio, @Ativo); SELECT convert(int,@@identity) as IdDenuncia;";
+                    command.CommandText = "INSERT INTO tb_denuncia (descricao, categoria, rua, numero, bairro, cidade, estado, cep, url_imagem, is_anonimo, data_envio, ativo) VALUES (@Descricao, @Categoria, @Rua, @Numero, @Bairro, @Cidade, @Estado, @Cep, @UrlImagem, @IsAnonimo, @DataEnvio, @Ativo); SELECT convert(int,@@identity) as IdDenuncia;";
 
                     command.Parameters.AddWithValue("@Descricao", denuncia.Descricao);
                     command.Parameters.AddWithValue("@Status", (int)denuncia.Status);
